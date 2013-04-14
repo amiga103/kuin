@@ -1,0 +1,368 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<html lang="ja">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>kuin.vimの更新履歴</title>
+        <style type="text/css">
+            @import "style.css";
+            span.type {color: #2E8B57; font-weight: bold; }
+            span.error {padding: 0 3px 0 3px; color: #FFFFFF; background-color: #FF0000; }
+            span.keyword {color: #804040; font-weight: bold; }
+            span.comment {color: #0000FF; }
+            span.str {color: #FF0000; }
+            span.constant {color: #FF00FF; }
+        </style>
+        <script type="text/javascript">
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-22164995-2']);
+            _gaq.push(['_trackPageview']);
+
+            (function() {
+             var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+             ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+             var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+             })();
+        </script>
+    </head>
+
+    <body>
+        <div id="container">
+            <h1>kuin.vimの更新履歴</h1>
+            <p>
+            Last Modified: 2013/03/25 01:28:15.<br>
+            <b>Only available in Japanese text.</b><br>
+            <a href="./index.html">kuin.vimの紹介ページへ戻る</a>
+            </p>
+            <hr> <!-- ___________________________________________________ -->
+
+            <h2 id="contents">目次</h2>
+            <ul>
+                <li><a href="#id20130325">2013/03/25</a>
+                <li><a href="#id20130321">2013/03/21</a>
+                <li><a href="#id20120930">2012/09/30</a>
+                <li><a href="#id20120929">2012/09/29</a>
+                <li><a href="#id20120923">2012/09/23</a>
+                <li><a href="#id20120918">2012/09/18</a>
+                <li><a href="#id20120917">2012/09/17</a>
+                <li><a href="#id20120911">2012/09/11</a>
+                <li><a href="#id20120910">2012/09/10</a>
+                <li><a href="#id20120906">2012/09/06</a>
+                <li><a href="#id20120901">2012/09/01</a>
+                <li><a href="#id20120829">2012/08/29</a>
+                <li><a href="#id20120828">2012/08/28</a>
+                <li><a href="#id20120826">2012/08/26</a> <a href="https://twitter.com/tatt61880/status/239722449351106563">[Twitterにおける宣伝ツイート(2回目)]</a>
+                <li><a href="#id20120819">2012/08/19</a>
+                <li><a href="#id20120812">2012/08/12</a>
+                <li><a href="#id20120811">2012/08/11</a>
+                <li><a href="#id20120805">2012/08/05</a>
+                <li><a href="#id20120804">2012/08/04</a>
+                <li><a href="#id20120801">2012/08/01</a>
+                <li><a href="#id20120729">2012/07/29</a>
+                <li><a href="#id20120726">2012/07/26</a>
+                <li><a href="#id20120725">2012/07/25</a>
+                <li><a href="#id20120723">2012/07/23</a>
+                <li><a href="#id20120722">2012/07/22</a>
+                <li><a href="#id20120721">2012/07/21</a> (kuin.vim 作成・公開) <a href="https://twitter.com/tatt61880/statuses/226683108169236480">[Twitterにおける宣伝ツイート]</a>
+            </ul>
+
+            <hr> <!-- ___________________________________________________ -->
+
+            <h2 id="id20130325">2013/03/25</h2>
+            <ul>
+                <li>[syntax] enumやclassに対するprivate指定をエラー表示しないようにしました。
+                </li><li>[indent] ファイル先頭のインデントが0になるようにしました。
+                </li>
+            </ul>
+            <a href="./syntax/20130325/kuin.vim">kuin.vim (syntax)</a>
+            <a href="./indent/20130325/kuin.vim">kuin.vim (indent)</a>
+ 
+            <h2 id="id20130321">2013/03/21</h2>
+            <ul>
+                <li>[syntax] セミコロンをエラー表示扱いするようにしました。
+                </li><li>[syntax] #で単語が区切られない不具合を修正しました。例えば、Test@C#E#Hoge のような識別子において、C#E#Hoge の部分が1単語のように扱われてしまっていました。
+                </li>
+            </ul>
+            <a href="./syntax/20130321/kuin.vim">kuin.vim (syntax)</a>
+
+            <h2 id="id20120930">2012/09/30</h2>
+            <ul>
+                <li>[syntax] matchit.vim対応箇所のメンテナンス性を若干改善しました。
+                </li><li>[syntax] matchit.vim対応で、【if】で%を押したときの挙動で、【end if】だけでなく 【elif】, 【else】も補足されるようになりました。<br>
+                【switch】-【case】-【default】-【end switch】や【try】-【catch】-【finally】-【end try】も同様です。
+                </li><li>[indent] 一部のオプション定義を、ftpluginに移しました。
+                </li><li>[ftplugin] 新規作成
+                </li>
+            </ul>
+            <a href="./syntax/20120930/kuin.vim">kuin.vim (syntax)</a>
+            <a href="./indent/20120930/kuin.vim">kuin.vim (indent)</a>
+            <a href="./ftplugin/20120930/kuin.vim">kuin.vim (ftplugin)</a>
+
+            <h2 id="id20120929">2012/09/29</h2>
+            <ul>
+                <li>[syntax] 下記の不具合を修正しました。
+                <ul>
+                    <li>[syntax] ノーマルモードで%をしたとき、<span class="comment">{ </span><span class="str">"}"</span><span class="comment"> }</span> の <span class="comment">{</span> が<span class="str">"}"</span>の方に対応してしまう。
+                    </li>
+                </ul>
+                これにより、<a href="http://dl.dropbox.com/u/9975638/kuin/vim/issues.html">既知の不具合</a>の内の主要なものはすべて修正されました。
+                </li>
+            </ul>
+            <a href="./syntax/20120929/kuin.vim">kuin.vim (syntax)</a>
+
+            <h2 id="id20120923">2012/09/23</h2>
+            <ul>
+                <li>[syntax] func型の<span class="type">func</span>とfunc構文の<span class="keyword">func</span>を区別しました。
+                </li>
+            </ul>
+            <a href="./syntax/20120923/kuin.vim">kuin.vim (syntax)</a>
+
+            <h2 id="id20120918">2012/09/18</h2>
+            <ul>
+                <li>[syntax] doを忘れたときのエラーを、先頭文字ではなく先頭の単語でエラー表示するようにしました。
+                </li>
+            </ul>
+            <a href="./syntax/20120918/kuin.vim">kuin.vim (syntax)</a>
+
+            <h2 id="id20120917">2012/09/17</h2>
+            <ul>
+                <li>[syntax] enunの要素が不当にエラー表記される不具合を修正しました。
+                </li>
+            </ul>
+            <a href="./syntax/20120917/kuin.vim">kuin.vim (syntax)</a>
+
+            <h2 id="id20120911">2012/09/11</h2>
+            <ul>
+                <li>[syntax] do忘れに気付きやすいように、行頭がキーワードから始まっていない場合にエラー表示するようにしました。
+                </li>
+            </ul>
+            <a href="./syntax/20120911/kuin.vim">kuin.vim (syntax)</a>
+
+            <h2 id="id20120910">2012/09/10</h2>
+            <ul>
+                <li>[syntax] 文字列リテラル中の\"の扱いを修正しました。<br>\"の場合は文字列を終了しませんが、\\"の場合は文字列を終了します。
+                </li>
+            </ul>
+            <a href="./syntax/20120910/kuin.vim">kuin.vim (syntax)</a>
+
+            <h2 id="id20120906">2012/09/06</h2>
+            <ul>
+                <li>[syntax] メンバ変数を定義時に初期化している場合にエラー表示するようにしました。
+                <pre>
+<span class="keyword">var</span> tesso1 : <span class="type">int</span><span class="error"> :: 1</span>
+<span class="keyword">block</span>
+    <span class="keyword">var</span> tesso2 : <span class="type">int</span> <span class="keyword">::</span> <span class="constant">1</span>
+    <span class="keyword">class</span> C()
+        <span class="keyword">var</span> tesso3 : <span class="type">int</span><span class="error"> :: 1</span>
+        <span class="keyword">func</span> f()
+            <span class="keyword">var</span> tesso4 : <span class="type">int</span> <span class="keyword">::</span> <span class="constant">1</span>
+        <span class="keyword">end func</span>
+    <span class="keyword">end class</span>
+<span class="keyword">end block</span>
+</pre>
+                </li>
+            </ul>
+            <a href="./syntax/20120906/kuin.vim">kuin.vim (syntax)</a>
+
+            <h2 id="id20120901">2012/09/01</h2>
+            <ul>
+                <li>[syntax] グローバル変数を定義時に初期化している場合にエラー表示するようにしました。
+                <pre>
+<span class="keyword">var</span> tesso1 : <span class="type">int</span><span class="error"> :: 1</span>
+<span class="keyword">block</span>
+    <span class="keyword">var</span> tesso2 : <span class="type">int</span> <span class="keyword">::</span> <span class="constant">1</span>
+<span class="keyword">end block</span>
+</pre>
+                </li>
+            </ul>
+            <a href="./syntax/20120901/kuin.vim">kuin.vim (syntax)</a>
+
+            <h2 id="id20120829">2012/08/29</h2>
+            <ul>
+                <li> [ftdetect] 以前、拡張子の定義（下記）を、_gvimrcに書いて頂くようにしていましたが、ftdetectフォルダにkuin.vimを置くのが正道のようです。<br>
+                    autocmd BufRead,BufNewFile *.kn set filetype=kuin<br>
+                    <span style="color:red">【重要】</span>以前 _gvimrcに上記1行を追加した方は、その行を削除してください。<br>
+                    代わりに、下記の"kuin.vim (ftdetect)"をftdetectフォルダに置いてください。<br>
+                    よろしくお願いします。<br>
+                    </li><li> [syntax] gfコマンドを行ったときに、.knファイルも検索するようにしました。set suffixesadd=.knしました。<br>
+                    こうしないと、import testのtest上でgfしてもファイル移動できません。
+                </li>
+            </ul>
+            <a href="./ftdetect/20120829/kuin.vim">kuin.vim (ftdetect)</a><br>
+            <a href="./syntax/20120829/kuin.vim">kuin.vim (syntax)</a>
+
+            <h2 id="id20120828">2012/08/28</h2>
+            <ul>
+                <li> [syntax] matchit.vimのネストしたブロックの挙動を修正しました。
+                </li><li> [syntax] @swap演算子を追加しました。
+                </li><li> [syntax] Ctor(),Dtor()を追加しました（コンストラクタとデストラクタ）。
+                </li><li> [syntax] 文字中や文字列中の<span class="error">\0</span>をエラー扱いするようにしました。Kuinでは\0は利用できません。<a href="https://twitter.com/10000favs/status/240013420915736576">[出典: Twitter / 10000favs]</a>
+                </li>
+            </ul>
+            <p>
+            <a href="./syntax/20120828/kuin.vim">kuin.vim (syntax)</a><br>
+            </p>
+
+            <h2 id="id20120826">2012/08/26</h2>
+            <ul>
+                <li> [syntax] 【set foldmethod=syntax】で、ブロック構造やコメントを折りたためるようになりました。
+                </li>
+            </ul>
+            <p>
+            <a href="./syntax/20120826/kuin.vim">kuin.vim (syntax)</a><br>
+            </p>
+
+            <h2 id="id20120819">2012/08/19</h2>
+            <ul>
+                <li> [syntax] 条件演算に対応しました。 <span class="keyword">?</span>( , ) の?と(の間にスペースなど(以外の文字があるとエラー扱いです。<br>
+                </li><li> [syntax] do ～ = となっているとエラー扱いなるようにしました。do ～ :: の間違いの可能性が高いです。<br>
+                </li><li> [syntax] <a href="http://www.vim.org/scripts/script.php?script_id=39">matchit.vim</a>に対応しました。<br>matchit.vim v1.13.2 (2008-01-29)で動作確認を行いました。<br>
+                </li><li> [indent] クラス定義中の +funcなどで正しくインデントされない不具合を修正しました。<br>
+                </li>
+            </ul>
+            <p>
+            <a href="./syntax/20120819/kuin.vim">kuin.vim (syntax)</a><br>
+            <a href="./indent/20120819/kuin.vim">kuin.vim (indent)</a><br>
+            </p>
+
+            <h2 id="id20120812">2012/08/12</h2>
+            <ul>
+                <li> [syntax] &amp;&amp; || ++ -- を<span class="error">Error</span>扱いにしました。<br>
+                ※Kuinでは、<span class="error">&amp;&amp;</span> ではなく <span class="keyword">&amp;</span>、 <span class="error">||</span> ではなく <span class="keyword">|</span>、 <span class="error">++</span> ではなく <span class="keyword">:+</span> <span class="constant">1</span>、 <span class="error">--</span> ではなく <span class="keyword">:-</span> <span class="constant">1</span> をそれぞれ用います。<br>
+                </li><li> [syntax] 10進数の指数表記 (例：<span class="constant">314159e-5</span>) を<span class="error">Error</span>扱いしないようにしました。 (※実際にKuinでどう扱われるのかは知りません。)<br>
+                </li><li> [syntax] ToStrなど、組み込みの関数ををシンタックスハイライトするようにしました。<br>
+                </li><li> [syntax] Kuin 0.02で追加される新しい構文 Test@C#E#Hoge が<span class="error">Error</span>扱いされないように修正しました。<br>
+                </li><li> [syntax] リファクタリングを行いました。<br>
+                </li>
+            </ul>
+            <p>
+            <a href="./syntax/20120812/kuin.vim">kuin.vim (syntax)</a><br>
+            </p>
+
+            <h2 id="id20120811">2012/08/11</h2>
+            <ul>
+                <li> [syntax] == を<span class="error">Error</span>扱いにしました。 例： <span class="keyword">if</span> ( a <span class="error">==</span> <span class="constant">0</span> )<br>
+                ※Kuinの等価演算子は <span class="error">==</span> ではなく、<span class="keyword">=</span> です。<br>
+                </li><li> [syntax] != を<span class="error">Error</span>扱いにしました。 例： <span class="keyword">if</span> ( a <span class="error">!=</span> <span class="constant">0</span> )<br>
+                ※Kuinの不等価演算子は <span class="error">!=</span> ではなく、<span class="keyword">&lt;&gt;</span> です。<br>
+                </li>
+            </ul>
+            <p>
+            <a href="./syntax/20120811/kuin.vim">kuin.vim (syntax)</a><br>
+            </p>
+
+            <h2 id="id20120805">2012/08/05</h2>
+            <ul>
+                <li> メンテナンス性を若干向上させました。動作は変更していません。
+                </li>
+            </ul>
+
+            <h2 id="id20120804">2012/08/04</h2>
+            <ul>
+                <li> [syntax] 文字中・文字列中の{}がコメントに影響を与えないようにしました。<br>
+                これにより、下記の文章は全体がコメント扱いになります。<br>
+                <span class="comment">{ ←ここからコメント </span><span class="str">"} ←この}はコメントを終了しない。"</span><span class="comment"> コメント </span><span class="str">'}'</span><span class="comment"> ここまでコメント→ }</span><br>
+                </li><li> [syntax] finallyに対応しました。<br>
+                </li><li> [indent] finallyに対応しました。<br>
+                </li>
+            </ul>
+            <p>
+            <a href="./syntax/20120804/kuin.vim">kuin.vim (syntax)</a><br>
+            <a href="./indent/20120804/kuin.vim">kuin.vim (indent)</a><br>
+            </p>
+
+            <h2 id="id20120801">2012/08/01</h2>
+            <ul>
+                <li> [indent] switch文におけるdefaultを忘れていたので、追加しました。 <br>
+                </li>
+            </ul>
+            <p>
+            <a href="./indent/20120801/kuin.vim">kuin.vim (syntax)</a><br>
+            </p>
+
+            <h2 id="id20120729">2012/07/29</h2>
+            <ul>
+                <li> [syntax] 数値のエラー判定を改善しました。<br>
+                </li>
+            </ul>
+            <p>
+            <a href="./syntax/20120729/kuin.vim">kuin.vim (syntax)</a><br>
+            </p>
+
+            <h2 id="id20120726">2012/07/26</h2>
+            <ul>
+                <li> [syntax] <span class="error">16#FF</span>をエラー表示するようにしました。<br>
+                (2進数は2#1111という具合に書きますが、16進数は16#FFFFではなく、#FFFFなので)<br>
+                </li><li> [syntax] 文字列の判定が誤っていたので修正しました。<br>
+                </li><li> [indent] try catchに対応させました（今まで入れ忘れていました）。<br>
+                </li>
+            </ul>
+            <p>
+            <a href="./syntax/20120726/kuin.vim">kuin.vim (syntax)</a><br>
+            <a href="./indent/20120726/kuin.vim">kuin.vim (indent)</a><br>
+            </p>
+
+            <h2 id="id20120725">2012/07/25</h2>
+            <ul>
+                <li> [indent] 複数行コメント中のforやifなどに反応して誤ってインデントしてしまう不具合を修正しました。<br>
+                </li>
+            </ul>
+            <p>
+            <a href="./indent/20120725/kuin.vim">kuin.vim (indent)</a><br>
+            </p>
+
+            <h2 id="id20120723">2012/07/23</h2>
+            <ul>
+                <li> [syntax] nan, infを忘れていたので、Constantとして追加しました。<br>
+                </li><li> [syntax] 数値の定義を修正・改善しました。<br>
+                </li>
+            </ul>
+            <p>
+            <a href="./syntax/20120723/kuin.vim">kuin.vim (syntax)</a><br>
+            </p>
+
+            <h2 id="id20120722">2012/07/22</h2>
+            <ul>
+                <li> [syntax/indent] block構文を忘れていたので修正しました。 (Thanks! <a href="http://twitter.com/gaogao_9/status/226713269535117312">@gaogao_9</a>)<br>
+                </li><li> [indent] caseでインデントするように修正しました。<br>
+                </li><li> [syntax] 3進数などのシンタックスハイライトに対応しました。<br>
+                </li>
+            </ul>
+            <p>
+            <a href="./syntax/20120722/kuin.vim">kuin.vim (syntax)</a><br>
+            <a href="./indent/20120722/kuin.vim">kuin.vim (indent)</a><br>
+            </p>
+
+            <h2 id="id20120721">2012/07/21</h2>
+            <ul>
+                <li>[syntax/indent] 初公開 (言語仕様Ver.0.01相当？)<br>
+                </li>
+            </ul>
+            <p>
+            <a href="./syntax/20120721/kuin.vim">kuin.vim (syntax)</a><br>
+            <a href="./indent/20120721/kuin.vim">kuin.vim (indent)</a><br>
+            </p>
+
+            <hr> <!-- ___________________________________________________ -->
+            <a href="./index.html">kuin.vimの紹介ページへ戻る</a>
+            <hr> <!-- ___________________________________________________ -->
+            <p>
+            Copyright (C) Tatt(タット)  ---- Twitterアカウント <a href="http://twitter.com/#!/tatt61880">@tatt61880</a><br>
+            </p>
+
+            <p>
+            <a href="http://twitter.com/share" class="twitter-share-button">ツイート</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+            <br>
+            <a href="http://validator.w3.org/check?uri=referer"><img
+                style="border:0;width:88px;height:31px"
+                src="http://www.w3.org/Icons/valid-html401"
+                alt="Valid HTML 4.01 Strict"></a>
+            <a href="http://jigsaw.w3.org/css-validator/check/referer"><img
+                style="border:0;width:88px;height:31px"
+                src="http://jigsaw.w3.org/css-validator/images/vcss"
+                alt="Valid CSS!"></a>
+            </p>
+        </div>
+    </body>
+</html>
+

@@ -1,0 +1,21 @@
+{ kuin_sample.kn }
+{ 素数の時だけAlgodooになる数列を出力します。 }
+func Main()
+    for i(2, #FF)
+        var is_prime : bool :: true
+        for j(2, i-1)
+            if (i % j = 0)
+                do is_prime :: false
+                break j
+            end if
+        end for
+
+        if (is_prime)
+            do Kuin@Dbg("Algodoo")
+        else
+            do Kuin@Dbg(i.ToStr())
+        end if
+    end for
+    do Kuin@Stop()
+end func
+

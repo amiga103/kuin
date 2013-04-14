@@ -1,0 +1,433 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<html lang="ja">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Kuinでπ計算 (10000桁)</title>
+        <style type="text/css">
+            @import "./../style.css";
+        </style>
+
+        <script type="text/javascript">
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-22164995-2']);
+            _gaq.push(['_trackPageview']);
+
+            (function() {
+             var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+             ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+             var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+             })();
+        </script>
+
+        <script type="text/javascript" src="./../scripts/shCore.js"></script>
+        <script type="text/javascript" src="./../scripts/shBrushKuin.js"></script>
+        <script type="text/javascript" src="./../scripts/shBrushCpp.js"></script>
+        <link type="text/css" rel="stylesheet" href="./../styles/shCoreDefault.css">
+        <script type="text/javascript">SyntaxHighlighter.all();</script>
+    </head>
+    <body>
+        <div id="container">
+            <h1>Kuinでπ計算 (10000桁)</h1>
+            <p>
+            Last Modified: 2013/03/21 12:32:44.<br>
+            <b>Only available in Japanese text.</b><br>
+            <!-- <b>日本語(Japanese), <a href="./index_en.html">English</a></b> -->
+            <a href="http://dl.dropbox.com/u/9975638/kuin/index.html">Kuin関連ページに戻る</a>
+            </p>
+            <hr> <!-- ___________________________________________________ -->
+            <h2 id="overview">概要</h2>
+            <ul>
+                <li>Kuinについてより深く知るために、C言語で書かれたコードを、Kuinのコードに翻訳してみました。<br>
+                    今回のターゲットは、πを10000桁出力するコードです。 ( 出力結果 → <a href="./20130320/Dbg.txt">Dbg.txt</a> )
+                </li>
+                <li> Kuinとは？
+                <ul>
+                    <li>くいなちゃん(<a href="https://twitter.com/kuina_tesso">@kuina_tesso</a>)が作成した言語<br>
+                    </li><li>詳しくはWebで → <a href="http://tes.so/kuin/">自作言語Kuin 公式ページ - Tes.So</a><br>
+                    </li>
+                </ul>
+                </li>
+            </ul>
+
+            <h2 id="result">作業してみてわかったこと/思ったこと</h2>
+            <ul><li>Cのfor(i = 0; i &lt; N; i++)は、Kuinでは for i(0, N-1) に対応するので-1を忘れないよう注意。
+                </li><li>「ファイル名@」は慣れるまで面倒に感じやすいかも(ファイル名が変わるだけで動かなくなるし)。
+                </li><li>宣言時の「変数名:型名」はスペースを入れない方が読みやすいように感じる (「var a : int」ではなく「var a:int」)。
+                </li><li>Kuin 0.023では、&amp;は両辺がBooleanの場合の論理積の演算子としては機能するけれど、両辺が数値の場合にビット積の演算子としては機能しない(未実装のためか、コンパイルエラーになる)。
+                </li><li>言語翻訳作業は勉強になる。
+                </li><li><a href="http://dl.dropbox.com/u/9975638/kuin/vim/index.html">kuin.vim (Kuin用 Vim設定ファイル)</a>が便利。シンタックスハイライトのおかげで文法ミスに気付きやすい。
+                </li>
+
+            </ul>
+            <p>「Kuinのバグを見つけられるかも」と期待しながら作業していましたが、見つかりませんでした。 :-)<br>
+            以下、今回作成したコードと、元のコードを掲載します。</p>
+
+            <h2 id="code">コード</h2>
+            <ul>
+            <li>
+            <a href="#kuin_0_023">Kuin 0.023用に書いたコード</a>
+            </li><li>
+            <a href="#C">Cで書かれたコード</a>
+            </li>
+            </ul>
+            <p>
+            コードの表示に、きょんたん(<a href="https://twitter.com/kyonfuee">@kyonfuee</a>)の作成した<a href="http://monora.me/kuin/">SyntaxHighlighter for Kuin</a>を使用しています。<br>
+            </p>
+            <h3 id="kuin_0_023">Kuin 0.023用に書いたコード</h3>
+            <p>
+            <a href="./20130320/pi.kn">pi.kn</a>
+            </p>
+            <pre class="brush: kuin;">
+{ http://mail2.nara-edu.ac.jp/~asait/c_program/sample0/pi.htm を参考に作成したKuin 0.023用のコードです。 @tatt61880 }
+const M:int :: 2502
+const N:int :: 2078
+
+func Main()
+    var x:[]byte32 :: @new [pi@N]byte32
+    var y:[]byte32 :: @new [pi@N]byte32
+
+    do pi@ATAN(x, 5)
+    do pi@Mul(x, 4$byte32)
+
+    do pi@ATAN(y, 239)
+
+    do pi@Sub(x, y)
+    do pi@Mul(x, 4$byte32)
+
+    do pi@Display(x)
+end func
+
+func ATAN(x:[]byte32, m:int)
+    var e:int
+    var m2:byte32
+    var y:[]byte32 :: @new [pi@N]byte32
+    var z:[]byte32 :: @new [pi@N]byte32
+    for i(0, pi@N-1)
+        do x[i] :: 0$byte32
+        do y[i] :: 0$byte32
+    end for
+    do y[0] :: 1$byte32
+
+    do pi@Div(y, m$byte32)
+    do pi@Dup(y, x)
+    do m2 :: (m*m)$byte32
+    var i:int :: 1
+    while (e = -1, skip)
+        do pi@Div(y, m2)
+        do pi@Dup(y, z)
+        do pi@Div(z, (2*i+1)$byte32)
+        if ( (i % 2) = 0 ) {if( (i &amp; 1) == 0 )  ビット積未実装}
+            do pi@Add(x, z)
+        else
+            do pi@Sub(x, z)
+        end if
+        do i :+ 1
+        do e :: pi@if_zero(z)
+    end while
+end func
+
+func Add(a:[]byte32, b:[]byte32)
+    var j:int
+    var x:byte32
+    for i(0, pi@N-1)
+        do x :: a[i] + b[i]
+        if(x &lt;= #FFFF $byte32)
+            do a[i] :: x
+        else
+            do a[i] :: x % #10000$byte32 {x &amp; 0xffff; ビット積未実装}
+            do j :: i-1
+            while(a[j] = #FFFF$byte32)
+                do a[j] :: 0$byte32
+                do j :- 1
+            end while
+            do a[j] :+ 1$byte32
+        end if
+    end for
+end func
+
+func Sub(a:[]byte32, b:[]byte32)
+    var j:int
+    for i(0, pi@N-1)
+        if (a[i] &gt;= b[i])
+            do a[i] :: a[i] - b[i]
+        else
+            do a[i] :: #10000$byte32 + a[i] - b[i]
+            do j :: i-1
+            while(a[j] = 0$byte32)
+                do a[j] :: #FFFF$byte32
+                do j :- 1
+            end while
+            do a[j] :- 1$byte32
+        end if
+    end for
+end func
+
+func Div(a:[]byte32, d:byte32)
+    var x:byte32
+    var q:byte32
+    var res:byte32
+    do res :: 0$byte32
+    for i(0, pi@N-1)
+        do res :* (2^16)$byte32 {res = res &lt;&lt; 16; シフト演算未実装}
+        do x :: a[i] + res
+        do q :: x/d
+        do a[i] :: q
+        do res :: x - q*d
+    end for
+end func
+
+func Mul(a:[]byte32, d:byte32)
+    var i:int
+    var x:byte32
+    var q:byte32
+    do q :: 0$byte32
+    for i(pi@N-1, 0, -1)
+        do x :: a[i]*d + q
+        do a[i] :: x % #10000$byte32 {x &amp; 0xffff; ビット積未実装}
+        do q :: x / (2^16)$byte32 {q = x &gt;&gt; 16; シフト演算未実装}
+    end for
+end func
+
+func Dup(a:[]byte32, b:[]byte32)
+    for i(0, pi@N-1)
+        do b[i] :: a[i]
+    end for
+end func
+
+func if_zero(a:[]byte32) :int
+    var j:int
+    do j :: 0
+    for i(0, pi@N-1)
+        if (a[i] &lt;&gt; 0$byte32)
+            do j :: -1
+            break i
+        end if
+    end for
+    return j
+end func
+
+func Display(a:[]byte32)
+    var j:int
+    var w:[]byte32 :: @new [pi@M]byte32
+    do pi@to_decimal(a, w)
+    var str:[]char :: ""
+    do str :~ (w[0]$int).ToStrF("4.1d") ~ "." {printf("%4.1u.",w[0])}
+    for i(1, pi@M-1)
+        do str :~ (w[i]$int).ToStrF("4.4d") ~ " " {printf("%4.4u ", w[i])}
+        do j :: i%12
+        if(j=0)
+            do str :~ "\n     " {printf("\n     ")}
+        end if
+    end for
+    do str :~ "\n" {printf("\n")}
+    do Kuin@Dbg(str)
+end func
+
+func to_decimal(a:[]byte32, w:[]byte32)
+    var b:[]byte32 :: @new [pi@N]byte32
+    for i(0, pi@N-1)
+        do b[i] :: a[i]
+    end for
+    do w[0] :: b[0]
+    do b[0] :: 0$byte32
+    for i(1, pi@M-1)
+        do pi@Mul(b, 10000$byte32)
+        do w[i] :: b[0]
+        do b[0] :: 0$byte32
+    end for
+end func
+</pre>
+
+            <h3 id="C">Cで書かれたコード</h3>
+            <a href="./20130320/pi.c">pi.c</a> ( <a href="http://mail2.nara-edu.ac.jp/~asait/c_program/sample0/pi.htm">http://mail2.nara-edu.ac.jp/~asait/c_program/sample0/pi.htm</a>に少し手を加えたコードです。)
+            <pre class="brush: c">
+// http://mail2.nara-edu.ac.jp/~asait/c_program/sample0/pi.htm
+#include &lt;stdio.h&gt;
+#define M 2502
+#define N 2078
+
+void Add(unsigned a[], unsigned b[]);
+void Sub(unsigned a[], unsigned b[]);
+void Div(unsigned a[], unsigned d);
+void Mul(unsigned a[], unsigned d);
+void Dup(unsigned a[], unsigned b[]);
+void ATAN(unsigned x[], int m);
+int if_zero(unsigned a[]);
+void Display(unsigned a[]);
+void to_decimal(unsigned a[], unsigned w[]);
+
+void main(){
+    unsigned x[N], y[N];
+
+    ATAN(x, 5);
+    Mul(x, 4);
+
+    ATAN(y, 239);
+
+    Sub(x, y);
+    Mul(x, 4);
+
+    Display(x);
+}
+
+void ATAN(unsigned x[], int m){
+    int i, e;
+    unsigned m2;
+    unsigned y[N], z[N];
+    for(i = 0; i &lt; N; i++){
+        x[i] = 0;
+        y[i] = 0;
+    }
+    y[0] = 1;
+
+    Div(y, m);
+    Dup(y, x);
+    m2 = m*m;
+    i = 1;
+    do {
+        Div(y, m2);
+        Dup(y, z);
+        Div(z, 2*i+1);
+        if( (i &amp; 1) == 0 ){
+            Add(x, z);
+        } else {
+            Sub(x, z);
+        }
+        i++;
+        e = if_zero(z);
+    } while (e == -1);
+}
+
+void Add(unsigned a[], unsigned b[]){
+    int i,j;
+    unsigned x;
+    for(i = 0; i &lt; N; i++){
+        x = a[i] + b[i];
+        if(x &lt;= 0xffff){
+            a[i] = x;
+        } else {
+            a[i] = x &amp; 0xffff;
+            j = i-1;
+            while(a[j] == 0xffff){
+                a[j] = 0;
+                j--;
+            }
+            a[j]++;
+        }
+    }
+}
+
+void Sub(unsigned a[], unsigned b[]){
+    int i,j;
+    for(i = 0; i &lt; N; i++){
+        if (a[i] &gt;= b[i]){
+            a[i] = a[i] - b[i];
+        } else {
+            a[i] = 0x10000 + a[i] - b[i];
+            j = i-1;
+            while(a[j] == 0){
+                a[j] = 0xffff;
+                j--;
+            }
+            a[j]--;
+        }
+    }
+}
+
+void Div(unsigned a[], unsigned d){
+    int i;
+    unsigned x, q, res;
+    res = 0;
+    for(i = 0; i &lt; N; i++){
+        res = res &lt;&lt; 16;
+        x = a[i] + res;
+        q = x/d;
+        a[i] = q;
+        res = x - q*d;
+    }
+}
+
+void Mul(unsigned a[], unsigned d){
+    int i;
+    unsigned x, q;
+    q = 0;
+    for(i = N-1; i &gt;= 0; i--){
+        x = a[i]*d + q;
+        a[i] = x &amp; 0xffff;
+        q = x &gt;&gt; 16;
+    }
+}
+
+void Dup(unsigned a[], unsigned b[]){
+    int i;
+    for(i = 0; i &lt; N; i++){
+        b[i] = a[i];
+    }
+}
+
+int if_zero(unsigned a[]){
+    int i, j;
+    j = 0;
+    for(i = 0; i &lt; N; i++){
+        if (a[i] != 0) {
+            j = -1;
+            break;
+        }
+    }
+    return j;
+}
+
+void Display(unsigned a[]){
+    int i,j;
+    unsigned w[M];
+    to_decimal(a, w);
+    printf("%4.1u.",w[0]);
+    for(i = 1; i &lt; M; i++){
+        printf("%4.4u ", w[i]);
+        j = i%12;
+        if(j==0) printf("\n     ");
+    }
+    printf("\n");
+}
+
+void to_decimal(unsigned a[], unsigned w[]){
+    int i;
+    unsigned b[N];
+    for(i = 0; i &lt; N; i++){
+        b[i] = a[i];
+    }
+    w[0] = b[0];
+    b[0] = 0;
+    for(i = 1; i &lt; M; i++){
+        Mul(b, 10000);
+        w[i] = b[0];
+        b[0] = 0;
+    }
+}
+</pre>
+            <hr>
+            <h1 id="ads" style="margin-top:1em;"></h1>
+            <a href="http://dl.dropbox.com/u/9975638/kuin/index.html">Kuin関連ページに戻る</a>
+            <hr> <!-- ___________________________________________________ -->
+            <p>
+            Copyright (C) Tatt(タット)  ---- Twitterアカウント <a href="http://twitter.com/#!/tatt61880">@tatt61880</a><br>
+            </p>
+
+            <p>
+            <a href="http://twitter.com/share" class="twitter-share-button">ツイート</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+            <script src="//platform.twitter.com/widgets.js" charset="utf-8" type=""></script>
+            <br>
+            <a href="http://validator.w3.org/check?uri=referer"><img
+                style="border:0;width:88px;height:31px"
+                src="http://www.w3.org/Icons/valid-html401"
+                alt="Valid HTML 4.01 Strict"></a>
+            <a href="http://jigsaw.w3.org/css-validator/check/referer"><img
+                style="border:0;width:88px;height:31px"
+                src="http://jigsaw.w3.org/css-validator/images/vcss"
+                alt="Valid CSS!"></a>
+            </p>
+        </div>
+    </body>
+</html>
+

@@ -1,0 +1,194 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<html lang="ja">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Kuinシミュレータを応援するページ</title>
+        <style type="text/css">
+            @import "style.css";
+        </style>
+
+        <script type="text/javascript">
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-22164995-2']);
+            _gaq.push(['_trackPageview']);
+
+            (function() {
+             var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+             ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+             var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+             })();
+        </script>
+    </head>
+    <body>
+        <div id="container">
+            <h1>Kuinシミュレータを応援するページ</h1>
+            <p>
+            Last Modified: 2012/09/16 11:44:30.<br>
+            </p>
+            <hr> <!-- ___________________________________________________ -->
+
+            <h2 id="overview">概要</h2>
+            <p>
+            Kuinシミュレータを勝手に応援するページです。<br>
+            ※<a href="http://js.from.tv/kuin_js/index.html">Kuinシミュレータ</a>は、ゆーひさん(<a href="https://twitter.com/yuhi_as/status/221261617743147009">@yuhi_as</a>)が作成した、Kuin-&gt;Javascriptコンバータです。Web上で実行できて便利。<br>
+            ※<a href="http://tes.so/kuin/">Kuin</a>は、くいなちゃん(<a href="https://twitter.com/kuina_tesso">@kuina_tesso</a>)が考案したプログラミング言語です。<br>
+            </p>
+
+            <h2 id="table">対応表</h2>
+            <table style="border-collapse:collapse;">
+                <tbody>
+                    <tr>
+                        <th colspan="3"> 2012/07/22 追加 </th>
+                        </tr><tr>
+                        <th>Kuin</th><th>Javascript</th><th>状況</th>
+                        </tr><tr>
+
+                        <td>block</td>
+                        <td>{</td>
+                        <td>☆対応済☆ (2012/07/24)</td>
+                        </tr><tr>
+
+                        <td>else</td>
+                        <td>} else {</td>
+                        <td>☆対応済☆ (2012/07/24)</td>
+                        </tr><tr>
+
+                        <td>elif</td>
+                        <td>} else if {</td>
+                        <td>☆対応済☆ (2012/07/24)</td>
+                        </tr><tr>
+
+                        <td>Kuin@Dbg</td>
+                        <td>Log@WriteLn</td>
+                        <td>☆対応済☆ (2012/07/24)</td>
+                        </tr><tr>
+
+                        <td>Kuin@Stop()</td>
+                        <td>（不明）</td>
+                        <td>☆対応済☆ (2012/07/24 return)</td>
+                        </tr><tr>
+
+                        <td>.ToStr()</td>
+                        <td>.toString()</td>
+                        <td>☆対応済☆</td>
+                        </tr><tr>
+
+                        <td><span style="color:#FF0000">N</span>#<span style="color:#FF00FF">1111</span> (N進数)<br>※2&lt;=<span style="color:#FF0000">N</span>&lt;=9 || 11&lt;=<span style="color:#FF0000">N</span>&lt;=15 || 17&lt;=<span style="color:#FF0000">N</span>&lt;=36</td>
+                        <td>parseInt("<span style="color:#FF00FF">1111</span>", <span style="color:#FF0000">N</span>)</td>
+                        <td></td>
+                        </tr><tr>
+
+                        <td>#<span style="color:#FF00FF">FF</span> (16進数)</td>
+                        <td>0x<span style="color:#FF00FF">FF</span></td>
+                        <td></td>
+                        </tr><tr>
+
+                        <td>&lt;&gt;</td>
+                        <td>!=</td>
+                        <td>☆対応済☆ (2012/07/24)</td>
+                        </tr><tr>
+
+                        <td>@in, @nin</td>
+                        <td>（不明）</td>
+                        <td></td>
+                        </tr><tr>
+
+                        <th colspan="3"> 2012/07/24 追加 </th>
+                        </tr><tr>
+                        <th>Kuin</th><th>Javascript</th><th>状況</th>
+                        </tr><tr>
+
+                        <td><b>:</b><span style="color:#FF0000">@</span> (複合代入演算子)<br>※<span style="color:#FF0000">@</span>は +-*/%のいずれか。</td>
+                        <td><span style="color:#FF0000">@</span>=</td>
+                        <td></td>
+                        </tr><tr>
+
+                        <td>x ~ y (配列連結演算子 ~ )</td>
+                        <td>x.concat(y)</td>
+                        <td></td>
+                        </tr><tr>
+
+                        <td>x <b>:</b>~ y (配列連結の複合代入演算子 :~ )</td>
+                        <td>x.push(y)</td>
+                        <td></td>
+                        </tr><tr>
+
+                        <th colspan="3"> 2012/07/28 追加 </th>
+                        </tr><tr>
+                        <th>Kuin</th><th>Javascript</th><th>状況</th>
+                        </tr><tr>
+
+                        <td>x ^ y (累乗 ^ )</td>
+                        <td>Math.pow(x, y)</td>
+                        <td></td>
+                        </tr><tr>
+
+                        <td>x :^ y (累乗の複合代入演算子 :^ )</td>
+                        <td>x = Math.pow(x, y)</td>
+                        <td></td>
+                        </tr><tr>
+
+                        <th>Kuin</th><th>Javascript</th><th>状況</th>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2 id="changelog">更新履歴</h2>
+            <table border="0" cellspacing="0" cellpadding="0">
+                <tbody>
+                    <tr>
+                        <td style="border:0">
+                            ・2012/07/07 ゆーひさんがKuinシミュレータ公開<br>
+                            ・2012/07/22 「Kuinシミュレータを応援するページ」（このページ）公開
+                        </td></tr><tr>
+                        <td style="border:0">
+                            <blockquote class="twitter-tweet" lang="ja"><p>@<a href="https://twitter.com/yuhi_as">yuhi_as</a> 割と簡単に修正できそうな未対応部分があったので、リストアップしてみました。→ Kuinシミュレータを応援するページ <a href="http://t.co/4N5bSI61" title="http://dl.dropbox.com/u/9975638/kuin/javascript/simulator/index.html">dl.dropbox.com/u/9975638/kuin…</a> よろしくお願いします☆&mdash; Tatt (タット)さん (@tatt61880)
+                                <a href="https://twitter.com/tatt61880/status/226998301701066753">7月 22, 2012 </a></p></blockquote>
+                            <script src="//platform.twitter.com/widgets.js" charset="utf-8" type=""></script>
+                        </td></tr><tr>
+
+                        <td style="border:0">
+                            ・2012/07/24 更新
+                        </td></tr><tr>
+                        <td style="border:0">
+                            <blockquote class="twitter-tweet" lang="ja"><p>シミュレータの指摘箇所、N進数以外適当対応。N進数とかはクラス対応に合わせてやりたい <a href="http://t.co/CCgSpsS9" title="http://js.from.tv/kuin_js/">js.from.tv/kuin_js/</a> Kuin0.02マダー&mdash; ゆーひさん (@yuhi_as) <a href="https://twitter.com/yuhi_as/status/227442906351431680">7月 23, 2012</a></p></blockquote>
+                            <script src="//platform.twitter.com/widgets.js" charset="utf-8" type=""></script>
+                        </td></tr><tr>
+                        <td style="border:0">
+                            ・2012/07/24 晩
+                        </td></tr><tr>
+                        <td style="border:0">
+                            ・<a href="http://js.from.tv/kuin_js/large.html">テキストエリアサイズ拡大版</a>のページが公開されました。テキストエリアが狭いと感じていたので、ありがたいです。
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>
+            ありがとうございます☆<br>
+            </p>
+
+            <hr> <!-- ___________________________________________________ -->
+            <h1 id="other">その他</h1>
+            <a href="http://dl.dropbox.com/u/9975638/kuin/index.html">Kuin関連ページの紹介</a>
+            <hr> <!-- ___________________________________________________ -->
+            <p>
+            Copyright (C) Tatt(タット)  ---- Twitterアカウント <a href="http://twitter.com/#!/tatt61880">@tatt61880</a>
+            </p>
+
+            <p>
+            <a href="http://twitter.com/share" class="twitter-share-button">ツイート</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+            <br>
+            <a href="http://validator.w3.org/check?uri=referer"><img
+                style="border:0;width:88px;height:31px"
+                src="http://www.w3.org/Icons/valid-html401"
+                alt="Valid HTML 4.01 Strict"></a>
+            <a href="http://jigsaw.w3.org/css-validator/check/referer"><img
+                style="border:0;width:88px;height:31px"
+                src="http://jigsaw.w3.org/css-validator/images/vcss"
+                alt="Valid CSS!"></a>
+            </p>
+        </div>
+    </body>
+</html>
+

@@ -1,0 +1,126 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<html lang="ja">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Kuin用 Neocomplcache-snippets-complete 設定ファイル</title>
+        <style type="text/css">
+            @import "style.css";
+            span.keyword {color: #804040; font-weight: bold; }
+            span.constant {color: #FF00FF; }
+        </style>
+
+        <script type="text/javascript">
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-22164995-2']);
+            _gaq.push(['_trackPageview']);
+
+            (function() {
+             var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+             ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+             var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+             })();
+        </script>
+    </head>
+    <body>
+        <div id="container">
+            <h1>Kuin用 Neocomplcache-snippets-complete 設定ファイル</h1>
+            <p>
+            Last Modified: 2012/09/30 00:58:33.
+            <!--
+            <br>
+            <b>日本語(Japanese), <a href="./index_en.html">English</a></b>
+            -->
+            </p>
+            <hr> <!-- ___________________________________________________ -->
+
+            <!--
+            <h2 id="changelog">更新履歴 / 古いバージョンの入手</h2>
+            <p>
+            <a href="./changes.html"> 更新履歴 </a>を御覧ください。
+            </p>
+            -->
+
+            <h2 id="overview">概要</h2>
+            <p>
+            Kuin用のNeocomplcache-snippets-complete設定ファイルです。<br>
+            ※<a href="http://tes.so/kuin/">Kuin</a>は、くいなちゃん(<a href="https://twitter.com/kuina_tesso">@kuina_tesso</a>)が考案したプログラミング言語です。<br>
+            <br>
+            <span class="keyword">if</span>と打って、スペニットを展開すると自動的に<span class="keyword">end if</span>まで入力されます。
+            </p>
+            <table border=1>
+                <tr style="background-color:#B0D4E5" align=center>
+                    <td>
+                        【使用イメージ】<br><img src="./example.png" alt="[Image: Neocomplcache-snippets-complete 設定ファイル使用例]">
+                    </td>
+                </tr>
+            </table>
+            <p>
+            スペニットの展開直後は、図の<span class="constant">true</span>の位置にカーソルが来ます。<br>
+            条件式の入力後、スペニットを展開するキーを入力し <span style="color:#0000FF">&lt;`0`&gt;</span> の位置に来てコーディングを続けることができます。
+            </p>
+
+            <h2 id="download">ダウンロード</h2>
+            <p>
+            【自己責任でご利用下さい】<br>
+            2012/08/08 公開<br>
+            2012/08/27 修正<br>
+            2012/08/28 修正<br>
+            2012/09/23 修正<br>
+            2012/09/30 修正<br>
+            <a href="./20120930/kuin.snip">kuin.snip</a> (for Neocomplcache-snippets-complete)
+            </p>
+
+            <h2 id="usage">インストール手順</h2>
+            <ol>
+                <li>
+                neocomplcache, neocomplcache-snippets-complete をインストール。<br>
+                私はこのインストールで躓いたので、参考になったサイトを挙げておきます。<br>
+                　・<a href="http://d.hatena.ne.jp/AyeBee_TY/20110914/1315967356">http://d.hatena.ne.jp/AyeBee_TY/20110914/1315967356</a>
+                </li>
+
+                <li>
+                <a href="./../index.html">kuin.vim (Kuin用 Vim設定ファイル)</a>をインストール。<br>
+                </li>
+
+                <li>
+                ダウンロードしたkuin.snipファイルを下記のフォルダにおいてください。<br>
+                autoload\neocomplcache\sources\snippets_complete に置いてください。
+                </li>
+            </ol>
+            <p>
+            以上です。
+            </p>
+
+            <h2 id="messages">その他</h2>
+            <p>
+            不具合があれば連絡頂けると幸いです。<br>
+            なお、下記のバージョンで動作確認を行いました。<br>
+            Shougo-neocomplcache-ver.7.0-97-ga7d02b0.zip <br>
+            Shougo-neocomplcache-snippets-complete-ver.2.0-16-g1367f60.zip<br>
+            <br>
+            Emacsユーザーの方へ：<br>
+            <a href="./../../emacs/snippets/index.html">Kuin用 yasnippet 設定ファイル</a>も公開しています。<br>
+            よろしくお願いします。
+            </p>
+
+            <hr> <!-- ___________________________________________________ -->
+            <p>
+            Copyright (C) Tatt(タット)  ---- Twitterアカウント <a href="http://twitter.com/#!/tatt61880">@tatt61880</a><br>
+            </p>
+
+            <p>
+            <a href="http://twitter.com/share" class="twitter-share-button">ツイート</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+            <br>
+            <a href="http://validator.w3.org/check?uri=referer"><img
+                style="border:0;width:88px;height:31px"
+                src="http://www.w3.org/Icons/valid-html401"
+                alt="Valid HTML 4.01 Strict"></a>
+            <a href="http://jigsaw.w3.org/css-validator/check/referer"><img
+                style="border:0;width:88px;height:31px"
+                src="http://jigsaw.w3.org/css-validator/images/vcss"
+                alt="Valid CSS!"></a>
+            </p>
+        </div>
+    </body>
+</html>

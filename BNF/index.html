@@ -1,0 +1,724 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="ja">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Kuinの拡張バッカス・ナウア記法 (非公式)</title>
+        <style type="text/css">
+            @import "style.css";
+            th.h1color {background-color: #FBF; }
+            th.h2color {background-color: #FFB; }
+            span.comment {color: #0000FF; }
+            span.ended   {color: #40A040; }
+            span.str     {color: #FF0000; font-weight:bold;}
+            span.c       {color: #FF00FF; font-weight:bold;}
+            span.b       {color: #FF00FF; font-weight:bold;}
+        </style>
+
+        <script type="text/javascript">
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-22164995-2']);
+            _gaq.push(['_trackPageview']);
+
+            (function() {
+             var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+             ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+             var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+             })();
+        </script>
+    </head>
+    <body>
+        <div id="container">
+            <h1>Kuinの拡張バッカス・ナウア記法 (非公式)</h1>
+            <p>
+            Last Modified: 2013/04/14 17:59:40.<br>
+            <b>Only available in Japanese text.</b><br>
+            <!-- <b>日本語(Japanese), <a href="./index_en.html">English</a></b> -->
+            </p>
+            <hr> <!-- ___________________________________________________ -->
+
+            <h2 id="overview">概要</h2>
+            <ul>
+                <li>
+                BNFで記述したKuinの文法です（非公式）。<br>
+                <a href="http://tes.so/kuin/">Kuin</a>は、くいなちゃん(<a href="https://twitter.com/kuina_tesso">@kuina_tesso</a>)が考案したプログラミング言語です。<br>
+                </li>
+                <li>
+                <a href="http://dl.dropboxusercontent.com/u/101131308/kuin/document.html">自作言語Kuin 言語仕様Ver.0.03</a>を参考にしました。<br>
+                上記のサイトからそのまま持ってきた文章もあります。<br>
+                </li>
+            </ul>
+
+            <h2 id="contents">目次</h2>
+
+            <table style="margin-top:1em; margin-bottom:1em;">
+                <tr>
+                    <th colspan="6" class="h2color" align="left"><a href="#notation">このページで用いられている記法について</a></th>
+                </tr>
+                <tr>
+                    <th align="center" colspan="6" class="h1color"><a href="#bnf">BNF</a></th>
+                </tr>
+                <tr>
+                    <th align="center" rowspan="2" class="h2color"><a href="#import">import構文</a></th>
+                    <th align="center" colspan="3" class="h2color"><a href="#sentences">文</a></th>
+                    <th align="center" rowspan="2" class="h2color"><a href="#expression">式</a></th>
+                    <th align="center" rowspan="2" class="h2color"><a href="#others">その他</a></th>
+                </tr>
+                <tr>
+                    <th align="center" class="h2color"><a href="#definition">定義文</a></th>
+                    <th align="center" class="h2color"><a href="#block_statement">ブロック文</a></th>
+                    <th align="center" class="h2color"><a href="#simple_sentence">単文</a></th>
+                </tr>
+                <tr>
+                    <td valign="top">
+                        <a href="#import">import構文</a><br>
+                    </td>
+                    <td valign="top">
+                        <a href="#func">func構文 (関数)</a><br>
+                        <a href="#var">var構文 (変数)</a><br>
+                        <a href="#const">const構文 (定数)</a><br>
+                        <a href="#alias">alias構文 (別名)</a><br>
+                        <a href="#class">class構文 (クラス)</a><br>
+                        <a href="#enum">enum構文 (列挙体)</a><br>
+                    </td>
+
+                    <td valign="top">
+                        <a href="#if">if文</a><br>
+                        <a href="#switch">switch文</a><br>
+                        <a href="#while">while文</a><br>
+                        <a href="#for">for文</a><br>
+                        <a href="#foreach">foreach文</a><br>
+                        <a href="#try">try文</a><br>
+                        <a href="#ifdef">ifdef文</a><br>
+                        <a href="#block">block文</a><br>
+                    </td>
+
+                    <td valign="top">
+                        <a href="#do">do文</a><br>
+                        <a href="#break">break文</a><br>
+                        <a href="#continue">continue文</a><br>
+                        <a href="#return">return文</a><br>
+                        <a href="#assert">assert文</a><br>
+                        <a href="#throw">throw文</a><br>
+                    </td>
+
+                    <td valign="top">
+                        <a href="#string">文字列リテラル</a><br>
+                        <a href="#char">文字リテラル</a><br>
+                        <a href="#boolean">Booleanリテラル</a><br>
+                        <a href="#number">数値リテラル</a><br>
+                    </td>
+
+                    <td valign="top">
+                        <a href="#identifier">識別子</a><br>
+                        <a href="#operator">演算子</a><br>
+                        <a href="#functioncall">関数呼び出し</a><br>
+                        <a href="#type">型</a><br>
+                        <a href="#value">値指定</a><br>
+                        <a href="#comment">コメント</a><br>
+                    </td>
+                </tr>
+
+                <tr><th colspan="6" class="h1color" style="text-align: left;">
+                        <a href="#questions">このページの作者がKuinについて知らないこと(覚え書き)</a>
+                    </th>
+                </tr>
+                <tr><th colspan="6" class="h1color" style="text-align: left;">
+                        <a href="#other">Kuin関連ページの紹介</a>
+                    </th>
+                </tr>
+            </table>
+
+            <h2 id="notation" style="margin-top:1em;">このページで用いられている記法について</h2>
+            <p>
+            <a href="http://www.w3.org/TR/REC-xml/#sec-notation">Extensible Markup Language (XML) 1.0 (Fifth Edition)</a>に準ずる表記法です。<br>
+            BNFを拡張した表記法ですが、EBNF や ABNFではありません。<br>
+            上記リンク先の記法と異なる点が4つあります。<br>
+            </p>
+            <ol>
+                <li>終端記号をクオテーションで括っていない。<br>
+                色付けしているので混乱はしないと思います。例："int"ではなく、<span class="str">int</span><br>
+                </li>
+                <li>終端記号としての空白類文字を明記していない。<br>
+                以下のルールで記述しています。<br>
+                <ul>
+                         <li>定義中にスペースがない箇所 → スペース挿入不可。<br>
+                    </li><li>定義中にスペースがある箇所で、前後ともに[<span class="c">0-9A-Za-z_</span>] → スペース必須。<br>
+                    </li><li>その他 → スペースの存在は任意。<br>
+                    </li><li>Import構文( <a href="#import">Import</a> ) や 文( <a href="#sentences">Sentence</a> )の終わりには改行文字<span class="str">\n</span>(LF)が必要。[要出典]
+                    </li><li>その他改行文字が必要な箇所ではBNFの定義中でも改行されている。逆に行の途中では改行不可能。[要出典]
+                    </li>
+                </ul>
+                </li>
+                <li>定義の終了を <span class="ended">』</span> で示している。<br>
+                セミコロン( ; )で示す流儀もありますが、 <span class="ended">』</span> の方が誤認識しにくいと考えました。<br>
+                </li>
+                <li>1行コメントを採用。<br>
+                例：<span class="comment">// コメント</span>
+                </li>
+            </ol>
+
+            <h1 id="bnf">BNF</h1>
+            <pre>
+KuinSource ::= ( <a href="#import">Import</a> | <a href="#definition">Definition</a> )* <span class="ended">』</span>
+<span class="comment">// Kuinのソースファイルの拡張子は.knです。</span>
+<span class="comment">// Kuinのソースファイルは UTF-8 で書いてください（Ascii でもいけます）。 <a href="https://twitter.com/kuina_tesso/status/226723288318111745">[出典: Twitter / kuina_tesso]</a></span>
+</pre>
+
+            <h2 id="import">import構文</h2>
+            <pre>
+Import ::= <span class="str">import</span> SourceName <span class="ended">』</span>
+<span class="comment">// Test.knをインポートする場合の例: import Test</span>
+<span class="comment">// Test.knに定義された関数、変数、クラスなどが扱えるようになります。</span>
+<span class="comment">// 例えば、Test.kn上の F() 関数を呼び出すときは、Test@F() とします。ソースコード名が、そのまま名前空間となります。</span>
+<span class="comment">// Kuin では、誰が書いても同じようなコードになるという設計上、自身のソースコード上のグローバル変数であっても、@ の記述を必要とします。</span>
+<span class="comment">// つまり、Test.kn 内部から Test.kn 内部のグローバル変数やグローバル関数を参照するときも、Test@F() などと書く必要があります。</span>
+<span class="comment">// Test@ が省略できるのは、ローカル変数やローカル関数などへの参照だけです。</span>
+<span class="comment">// </span>
+<span class="comment">// 使われていない関数や変数などは、コンパイル時に勝手に外されます。</span>
+<span class="comment">// なので、使われないソースコードを無駄にimportしたからと言って、実行時の効率が悪くなることはありません。</span>
+</pre>
+
+            <h2 id="sentences">文</h2>
+            <pre>
+Sentences ::= Sentence+ <span class="ended">』</span>
+Sentence  ::= <a href="#definition">Definition</a>     |  <span class="comment">// 定義文</span>
+              <a href="#simple_sentence">SimpleSentence</a> |  <span class="comment">// 単文</span>
+              <a href="#block_statement">BlockSentence</a>  <span class="ended">』</span> <span class="comment">// ブロック文</span>
+</pre>
+
+            <h2 id="definition">定義文</h2>
+            <pre>
+Definition ::= <span class="str">-</span>? (<a href="#func">Func</a> | <a href="#var">Var</a> | <a href="#const">Const</a> | <a href="#alias">Alias</a> | <a href="#class">Class</a> | <a href="#enum">Enum</a> <span class="ended">)』</span>
+<span class="comment">// <span class="str">-</span> ⇒ 他のファイルに対してprivateな宣言[要出典]。 Kuin 0.023ではコンパイルエラーにはならないけれど未実装。</span>
+</pre>
+
+            <h3 id="func">func構文 (関数定義)</h3>
+            <pre>
+Func ::= <span class="str">func</span> FName <span class="str">(</span> (VName <span class="str">:</span> <span class="str">&amp;</span>? Type( <span class="str">,</span> VName <span class="str">:</span> <span class="str">&amp;</span>? Type )*)? <span class="str">)</span>( <span class="str">:</span> Type)?
+             Sentences?
+         <span class="str">end func</span> <span class="ended">』</span>
+<span class="comment">// 関数の引数の型の前に &amp; を付け、関数呼び出し時( <a href="#functioncall">FunctionCall</a> )も &amp; を付けると、参照渡しになります。</span>
+<span class="comment">// 例：func f(x : &amp;int) に対し、do f(&amp;i) <a href="https://twitter.com/kuina_tesso/status/238867619975950336">[出典: Twitter / kuina_tesso]</a></span>
+</pre>
+
+            <h3 id="var">var構文 (変数定義)</h3>
+            <pre>
+Var ::= <span class="str">var</span> VName <span class="str">:</span> Type( <span class="str">::</span> Expr)? <span class="ended">』</span>
+<span class="comment">// 代入( :: Expr)を省略した場合、すべて0で初期化されます。 <a href="https://twitter.com/kuina_tesso/status/235655067745792000">[出典: Twitter / kuina_tesso]</a></span>
+<span class="comment">// グローバル変数・メンバ変数では、定義時には値を代入できません。</span>
+<span class="comment">// 定義と同時に値を代入できるのは、ローカル変数のみです。</span>
+</pre>
+
+            <h3 id="const">const構文 (定数定義)</h3>
+            <pre>
+Const ::= <span class="str">const</span> VName <span class="str">:</span> Type <span class="str">::</span> Expr <span class="ended">』</span>
+<span class="comment">// 定数の代入式の右辺(Expr)は、コンパイル時に決定できる値でなくてはなりません。</span>
+</pre>
+
+            <h3 id="alias">alias構文 (別名定義)</h3>
+            <pre>
+Alias ::= <span class="str">alias</span> AName <span class="str">:</span> Type <span class="ended">』</span>
+<span class="comment">// []char を string などの別名にするのは推奨されません。</span>
+<span class="comment">// ( Kuin の文字列型が []char であることに慣れるのが望ましい )</span>
+</pre>
+
+            <h3 id="class">class構文 (クラス定義)</h3>
+            <pre>
+Class ::= <span class="str">class</span> CName <span class="str">(</span> ClassName? <span class="str">)</span>
+              ( [<span class="c">+-</span>]? <span class="str">*</span>? Definition )*
+          <span class="str">end class</span> <span class="ended">』</span>
+<span class="comment">// 継承元( ClassName )を省略した場合、Kuin@CClass が継承されます。</span>
+<span class="comment">// 全てのクラスは、ルートクラスである Kuin@CClass が継承されていると言えます。</span>
+<span class="comment">// 例： class CCat : CAnimalとした場合、Kuin@CClass → CAnimal → CCat</span>
+<span class="comment">// </span>
+<span class="comment">// <span class="str">-</span> ⇒ private なメンバ。</span>
+<span class="comment">// <span class="str">+</span> ⇒ protected なメンバ。</span>
+<span class="comment">// <span class="str">*</span> ⇒ 親クラスのメンバのオーバーライドを許可。</span>
+<span class="comment">// <span class="str">*</span> は、<span class="str">-</span> や <span class="str">+</span> の後に記述しなければエラーとなります。</span>
+<span class="comment">// (誰が書いても同じようなコードにするため)</span>
+<span class="comment">// ※Kuin 0.022 段階では、private / protected 指定は無視されます。<a href="http://ja.favstar.fm/users/10000favs/status/240843768083922944">[出典: Twitter / 10000favs]</a></span>
+<span class="comment">// オーバーライドできるのは関数のみです。[出典：<a href="../error/index.html#E0033">Error: E0033</a>]</span>
+<span class="comment">// </span>
+<span class="comment">// コンストラクタは、*func Ctor(), デストラクタは*func Dtor()<a href="http://ja.favstar.fm/users/10000favs/status/240108669142962177">[詳細: Twitter / 10000favs]</a></span>
+<span class="comment">// {インスタンスを作って初期化(Init)する方法} <a href="https://twitter.com/yuhi_as/status/240832040608595968">[出典: Twitter / yuhi_as]</a></span>
+<span class="comment">// {クラスのInitメソッドの宣言} </span>
+<span class="comment">// func Init(仮引数) : くらす</span>
+<span class="comment">//     do this.メンバ変数 :: 引数</span>
+<span class="comment">//     return this</span>
+<span class="comment">// end func</span>
+<span class="comment">// {呼び方}</span>
+<span class="comment">// var c : くらす :: (@new くらす).Init(実引数)</span>
+<span class="comment">// 上記のように、thisが使えます。 <a href="https://twitter.com/yuhi_as/status/240844387284811776">[出典: Twitter / yuhi_as]</a></span>
+</pre>
+
+            <h3 id="enum">enum構文 (列挙体定義)</h3>
+            <pre>
+Enum ::= <span class="str">enum</span> EName
+             ( ConstName( <span class="str">::</span> Expr)? )*
+         <span class="str">end enum</span> <span class="ended">』</span>
+<span class="comment">// :: Exprを指定しなかったときのデフォルト値は 0 から始まります。</span>
+<span class="comment">// 値は自動的に 1 ずつ足されて設定されます。</span>
+<span class="comment">// 下記の例では、Red は 0、Blue は 1、Yellow は 6に設定されます。</span>
+<span class="comment">// enum EColor</span>
+<span class="comment">//     Red</span>
+<span class="comment">//     Blue</span>
+<span class="comment">//     Green :: 5</span>
+<span class="comment">//     Yellow</span>
+<span class="comment">// end enum</span>
+<span class="comment">// 他の要素と値が重複した場合は、コンパイルエラーとなります。</span>
+<span class="comment">// 値の指定は、コンパイル時に int に決定される定数でなくてはなりません。</span>
+</pre>
+
+            <h2 id="block_statement">ブロック文</h2>
+            <pre>
+BlockStatement ::= <a href="#if">If</a> | <a href="#switch">Switch</a> | <a href="#while">While</a> | <a href="#for">For</a> | <a href="#foreach">Foreach</a> | <a href="#try">Try</a> | <a href="#ifdef">Ifdef</a> | <a href="#block">Block</a> <span class="ended">』</span>
+<span class="comment">// ブロック内で定義したローカル変数は、そのブロック内でのみ参照できます。</span>
+</pre>
+            <h3 id="if">if文</h3>
+            <pre>
+If ::= <span class="str">if</span> BlockName? <span class="str">(</span> Expr <span class="str">)</span>
+           Sentences?
+       ( <span class="str">elif</span> <span class="str">(</span> Expr <span class="str">)</span>
+           Sentences? )*
+       ( <span class="str">else</span>
+           Sentences? )?
+       <span class="str">end if</span> <span class="ended">』</span>
+<span class="comment">// 条件式 (</span><span class="str">()</span><span class="comment">の中身)は、bool型でなければなりません。</span>
+<span class="comment">// C言語のように int型にした場合、コンパイルエラーとなります。</span>
+</pre>
+
+            <h3 id="switch">switch文</h3>
+            <pre>
+Switch ::= <span class="str">switch</span> BlockName? <span class="str">(</span> Expr <span class="str">)</span>
+           ( <span class="str">case</span> <span class="str">(</span> <a href="#value">Value</a> <span class="str">)</span>
+               Sentences? )*
+           ( <span class="str">default</span>
+               Sentences? )?
+           <span class="str">end switch</span> <span class="ended">』</span>
+<span class="comment">// フォールスルーできません。case の最後に達した段階で自動でブロックを抜けます。</span>
+<span class="comment">// case の値は、カンマ区切りで複数指定できます。また、@to 演算子により、範囲指定もできます。</span>
+<span class="comment">// 上記のExprの型と<a href="#value">Valueの定義中</a>のExprの型は一致しなければなりません。</span>
+<span class="comment">// Exprに指定できる型： int、byte(byte16など)、char、enum、[]char</span>
+<span class="comment">// case の値は、コンパイル時に定数とならなくても構いません。</span>
+<span class="comment">// 複数の case条件に合致するとき、最初(最も上)に書かれた caseに捕捉されます。</span>
+<span class="comment">// case節で()が必要になったのは、Kuin 0.021以降です。<a href="http://ja.favstar.fm/users/10000favs/status/240065510954397696">[出典: Twitter / 10000favs]</a></span>
+</pre>
+
+            <h3 id="while">while文</h3>
+            <pre>
+While ::= <span class="str">while</span> BlockName? <span class="str">(</span> Expr( <span class="str">,</span> <span class="str">skip</span>)? <span class="str">)</span>
+              Sentences?
+          <span class="str">end while</span> <span class="ended">』</span>
+<span class="comment">// 条件式は bool型でなくてはなりません。</span>
+<span class="comment">// skipを指定した場合、初回の条件比較をスキップします (C言語のdo-whileの代替)。</span>
+</pre>
+
+            <h3 id="for">for文</h3>
+            <pre>
+For ::= <span class="str">for</span> BlockName? <span class="str">(</span> Expr <span class="str">,</span> Expr( <span class="str">,</span> Expr)? <span class="str">)</span>
+            Sentences?
+        <span class="str">end for</span> <span class="ended">』</span>
+<span class="comment">// 括弧内は順に、初期値、終値、増減値です。</span>
+<span class="comment">// 増減値を省略した場合、増減値は1になります。</span>
+<span class="comment">// 増減値が正の数ならば i &lt;= 終値 がループ続行の条件となります。</span>
+<span class="comment">// 増減値が負の数ならば i &gt;= 終値 がループ続行の条件となります。</span>
+<span class="comment">// 増減値が0の場合はコンパイルエラーになります。</span>
+<span class="comment">// 増減値はコンパイル時に定数になる値でなければなりません。</span>
+</pre>
+
+            <h3 id="foreach">foreach文</h3>
+            <pre>
+Foreach ::= <span class="str">foreach</span> BlockName? <span class="str">(</span> Expr <span class="str">)</span>
+                Sentences?
+            <span class="str">end foreach</span> <span class="ended">』</span>
+<span class="comment">// foreach で使えるのは、配列(文字列含む)、list、stack、queue、dict型だけです。</span>
+<span class="comment">// dict型からforeachで要素を取り出すと、KeyとValueのペアを持ったdictpair型になります。</span>
+<span class="comment">// enumも使えるようになるかも？ <a href="http://ja.favstar.fm/users/10000favs/status/236619326520696832">[出典: Twitter / 10000favs]</a></span>
+</pre>
+
+            <h3 id="try">try文</h3>
+            <pre>
+Try ::= <span class="str">try</span> BlockName?
+            Sentences?
+        <span class="str">catch</span> <span class="str">(</span> <a href="#value">Value</a>? <span class="str">)</span>
+            Sentences?
+        ( <span class="str">finally</span>
+            Sentences? )?
+        <span class="str">end try</span> <span class="ended">』</span>
+<span class="comment">// 上記のValueで例外コード(int型)を指定します（複数指定可能）。</span>
+<span class="comment">// catchで指定する例外コードは、コンパイル時に定数とならなくてはなりません。</span>
+<span class="comment">// 例外の情報は、ブロック名(ここではeとします)を用いて、e.Code、e.Msg のように参照できます。</span>
+<span class="comment">// eはKuin@CExcptクラスに属しており、例外が発生したソースコード上の箇所がこの変数に格納されています。</span>
+<span class="comment">// e.Code は例外コード(int型)、e.Msg はメッセージ([]char型)です。</span>
+<span class="comment">// tryやcatch中でbreakした場合、finallyを通ります。 <a href="http://ja.favstar.fm/users/10000favs/status/238904881581273088">[出典: Twitter / 10000favs]</a></span>
+<span class="comment">// ブロック名直後の括弧内に発生を抑制したい例外コードを記述する機能は削除されました。</span>
+<span class="comment">// <a href="http://ja.favstar.fm/users/10000favs/status/239192405054746625">[出典: Twitter / 10000favs]</a></span>
+<span class="comment">// catch節に()が必要になったのは、Kuin 0.02以降です。 <a href="http://ja.favstar.fm/users/10000favs/status/240025272936714240">[出典: Twitter / 10000favs]</a></span>
+<span class="comment">// finally内で そのtry文をbreakすると、無限ループになってしまうので注意してください。</span>
+</pre>
+
+            <h3 id="ifdef">ifdef文</h3>
+            <pre>
+Ifdef ::= <span class="str">ifdef</span> BlockName? <span class="str">( </span>(<span class="str">release</span>|<span class="str">debug</span>) <span class="str">)</span>
+              Sentences?
+          <span class="str">end ifdef</span> <span class="ended">』</span>
+<span class="comment">// debug を指定するとデバッグコンパイル時のみ中身がコンパイルされます。</span>
+<span class="comment">// C言語のプリプロセッサである #ifdef に似ていますが、ブロックである点に注意です。</span>
+<span class="comment">// つまり、Kuin の ifdef文の中で宣言した変数等は、その中でのみ使用できます。</span>
+<span class="comment">// </span>
+<span class="comment">// デバッグ用関数内で ifdef して リリース時に中身が空としてコンパイルされることを想定。</span>
+<span class="comment">// リリース時は最適化が働き、空の関数は存在が消えるなどの工夫を施されるそうです。<a href="https://twitter.com/tatt61880/status/242999757600088064">[出典: @10000favs]</a>(<a href="http://ja.favstar.fm/users/10000favs/status/242997881357864960">[出典: @10000favs]</a> <a href="http://ja.favstar.fm/users/10000favs/status/242967188322009088">[出典: @10000favs]</a> ) </span>
+</pre>
+
+            <h3 id="block">block文</h3>
+            <pre>
+Block ::= <span class="str">block</span> BlockName?
+              Sentences?
+          <span class="str">end block</span> <span class="ended">』</span>
+<span class="comment">// 単純に、ブロック構造を作りたいときに有効です。</span>
+<span class="comment">// 他のブロック文と同様、breakできます。</span>
+</pre>
+
+            <h2 id="simple_sentence">単文</h2>
+            <pre>
+SimpleSentence ::= <a href="#do">Do</a> | <a href="#break">Break</a> | <a href="#continue">Continue</a> | <a href="#return">Return</a> | <a href="#assert">Assert</a> | <a href="#throw">Throw</a> <span class="ended">』</span>
+</pre>
+            <h3 id="do">do文</h3>
+            <pre>
+Do ::= <span class="str">do</span> Variable OpSubstitution Expr | <span class="comment">// 代入</span>
+       <span class="str">do</span> Variable OpSwap Variable | <span class="comment">// 値の交換</span>
+       <span class="str">do</span> <a href="#functioncall">FunctionCall</a> <span class="ended">』</span> <span class="comment">// 関数呼び出し</span>
+<span class="comment">// 代入文では、両辺が参照型の場合、値ではなくアドレスが代入されます。</span>
+</pre>
+
+            <h3 id="break">break文</h3>
+            <pre>
+Break ::= <span class="str">break</span> BlockName <span class="ended">』</span>
+<span class="comment">// BlockNameで指定したブロックを抜けます。</span>
+<span class="comment">// BlockNameは省略不可能です。 <a href="https://twitter.com/kuina_tesso/status/232180889029836800">[出典: Twitter / kuina_tesso]</a></span>
+<span class="comment">// ただし、breakしないブロックにはBlockNameは不要です。[出典: 言語仕様Ver.0.03]</span>
+<span class="comment">// 全てのブロック文でbreak可能です。</span>
+</pre>
+
+            <h3 id="continue">continue文</h3>
+            <pre>
+Continue ::= <span class="str">continue</span> BlockName <span class="ended">』</span>
+<span class="comment">// BlockNameという名前を持つブロックの終端(end)直前にジャンプします。</span>
+<span class="comment">// BlockNameは省略不可能です。 <a href="https://twitter.com/kuina_tesso/status/232180889029836800">[出典: Twitter / kuina_tesso]</a></span>
+<span class="comment">// continue可能なブロックは、while、for、foreachです。</span>
+</pre>
+
+            <h3 id="return">return文</h3>
+            <pre>
+Return ::= <span class="str">return</span> Expr? <span class="ended">』</span>
+<span class="comment">// 戻り値が無い関数では、値を省略して return のみを記述することになります。</span>
+</pre>
+
+            <h3 id="assert">assert文</h3>
+            <pre>
+Assert ::= <span class="str">assert</span> Expr <span class="ended">』</span>
+<span class="comment">// 上記のExprはbool型でなければなりません。</span>
+<span class="comment">// 例： assert a &gt;= 2</span>
+<span class="comment">// このとき、デバッグ実行時に a が 2以上でなければ、例外が投げられます。</span>
+<span class="comment">// a が 2以上であることが保証されるべき場面での、テストに用いられます。</span>
+<span class="comment">// リリース時にはコンパイルから外されますので、最終的な動作速度に影響しません。</span>
+</pre>
+
+            <h3 id="throw">throw文</h3>
+            <pre>
+Throw ::= <span class="str">throw</span> Expr( <span class="str">,</span> Expr)? <span class="ended">』</span>
+<span class="comment">// 1つ目のExprは例外コード( int型 )</span>
+<span class="comment">// 2つ目のExprは例外メッセージ( []char型 )</span>
+<span class="comment">// 例外メッセージを省略した場合、例外メッセージに null が入ります。</span>
+</pre>
+
+            <h2 id="expression">式・変数</h2>
+            <pre>
+Expr ::= <span class="str">(</span> Expr <span class="str">)</span> |
+         <a href="#string">String</a> | <a href="#char">Char</a> | <a href="#boolean">Boolean</a> | <a href="#number">Number</a> |    <span class="comment">// リテラル</span>
+         Variable | ConstantName | <span class="comment">// 変数・定数</span>
+         BlockName |                   <span class="comment">// (Forなどの)ブロック名</span>
+              Op1 Expr |               <span class="comment">// 単項演算</span>
+         Expr Op2 Expr |               <span class="comment">// 二項演算</span>
+              OpType1 Type |           <span class="comment">// インスタンスの作成(@new)</span>
+         Expr OpType2 Type |           <span class="comment">// キャスト演算($)</span>
+         Expr OpClass2 ClassName |     <span class="comment">// クラスチェック(@is、@nis)</span>
+         Expr <span class="str">?(</span> Expr <span class="str">,</span> Expr <span class="str">)</span> |       <span class="comment">// 条件演算</span>
+         <a href="#functioncall">FunctionCall</a> <span class="ended">』</span>               <span class="comment">// 関数呼び出し</span>
+<span class="comment">// 条件演算の ? と ( の間にスペースを入れてはいけません。</span>
+<span class="comment">// true ?(A, B)の場合はAのみ、false ?(A, B)の場合はBのみが評価されます。</span>
+<span class="comment">// デバッグ実行時に配列の範囲外をアクセスすると、例外が投げられます。</span>
+<span class="comment">// 例えば、s[5]まで定義されている配列があるとして、 s[-1] や s[6] は例外発生です。</span>
+<span class="comment">// これにより、バグがメモリを破壊することを未然に防止できます。</span>
+
+Variable ::= VariableName |
+             Variable <span class="str">[</span> Expr <span class="str">]</span> <span class="ended">』</span> <span class="comment">// 配列アクセス</span>
+</pre>
+
+            <h3 id="string">文字列リテラル</h3>
+            <pre>
+String ::= <span class="str">"</span> ( [^<span class="c">"</span>] | <span class="str">\"</span> )* <span class="str">"</span> |
+           <span class="str">null</span> <span class="ended">』</span>
+</pre>
+
+            <h3 id="char">文字リテラル</h3>
+            <pre>
+Char  ::= <span class="str">'</span> ( [^<span class="c">'</span>] | <i>EscapedCh</i> ) <span class="str">'</span> <span class="ended">』</span>
+<span class="comment">// <i>EscapedCh</i> は </span><span class="str">\n \'</span><span class="comment"> などのエスケープ文字を表す文字列</span>
+<span class="comment">// <span class="str">\0</span>はKuinでは使用できません。 <a href="http://ja.favstar.fm/users/10000favs/status/240013420915736576">[出典: Twitter / 10000favs]</a></span>
+</pre>
+
+            <h3 id="boolean">Booleanリテラル</h3>
+            <pre>
+Boolean ::= <span class="str">true</span> | <span class="str">false</span> <span class="ended">』</span>
+</pre>
+
+            <h3 id="number">数値リテラル</h3>
+            <pre>
+<span class="comment">// Kuinでは、16進数はもちろん、2～36進数の浮動小数点まで記述できます。</span>
+<span class="comment">// 2進数の表記は例えば、2#00101111.1101 のようになります。#の前が基数です。</span>
+Number ::= [<span class="c">+-</span>]?NonNegativeNumber(<span class="str">e</span>Number)? |
+           <span class="str">inf</span><span class="ended">』</span>
+<span class="comment">// 指数表記 (31416e-4など)はKuin 0.02では未実装とのこと。 <a href="https://twitter.com/kuina_tesso/status/239738153823514625">[出典: Twitter / kuina_tesso]</a></span>
+<span class="comment">// infはfloat型のリテラルです[要出典]。</span><!--
+NonNegativeNumber ::= Base2 <span class="comment">// 2進数リテラル</span>
+                    | Base3 <span class="comment">// 3進数リテラル</span>
+                    | Base4 <span class="comment">// … </span>
+                    | Base5
+                    | Base6
+                    | Base7
+                    | Base8
+                    | Base9
+                    | Base10
+                    | Base11
+                    | Base12
+                    | Base13
+                    | Base14
+                    | Base15
+                    | Base16
+                    | Base17
+                    | Base18
+                    | Base19
+                    | Base20
+                    | Base21
+                    | Base22
+                    | Base23
+                    | Base24
+                    | Base25
+                    | Base26
+                    | Base27
+                    | Base28
+                    | Base29
+                    | Base30
+                    | Base31
+                    | Base32
+                    | Base33
+                    | Base34
+                    | Base35
+                    | Base36 <span class="ended">』</span> -->
+NonNegativeNumber ::= Base2 | Base3 | ... | Base36 <span class="ended">』</span> <span class="comment"> // 2進数～36進数</span>
+Base2  ::= <span class="b"> </span><span class="str">2#</span>[<span class="c">0-1</span>]+(<span class="str">.</span>[<span class="c">0-1</span>]+)? <span class="ended">』</span>
+Base3  ::= <span class="b"> </span><span class="str">3#</span>[<span class="c">0-2</span>]+(<span class="str">.</span>[<span class="c">0-2</span>]+)? <span class="ended">』</span> <!--
+Base4  ::= <span class="b"> </span><span class="str">4#</span>[<span class="c">0-3</span>]+(<span class="str">.</span>[<span class="c">0-3</span>]+)? <span class="ended">』</span>
+Base5  ::= <span class="b"> </span><span class="str">5#</span>[<span class="c">0-4</span>]+(<span class="str">.</span>[<span class="c">0-4</span>]+)? <span class="ended">』</span>
+Base6  ::= <span class="b"> </span><span class="str">6#</span>[<span class="c">0-5</span>]+(<span class="str">.</span>[<span class="c">0-5</span>]+)? <span class="ended">』</span>
+Base7  ::= <span class="b"> </span><span class="str">7#</span>[<span class="c">0-6</span>]+(<span class="str">.</span>[<span class="c">0-6</span>]+)? <span class="ended">』</span>
+Base8  ::= <span class="b"> </span><span class="str">8#</span>[<span class="c">0-7</span>]+(<span class="str">.</span>[<span class="c">0-7</span>]+)? <span class="ended">』</span> -->
+<span class="comment">// Base4, Base5, ..., Base8も同様</span>
+Base9  ::= <span class="b"> </span><span class="str">9#</span>[<span class="c">0-8</span>]+(<span class="str">.</span>[<span class="c">0-8</span>]+)? <span class="ended">』</span>
+Base10 ::= <span class="b">   </span>[<span class="c">0-9</span>]+(<span class="str">.</span>[<span class="c">0-9</span>]+)? <span class="ended">』</span>        <span class="comment">// <b>10</b>#99はコンパイルエラー</span>
+Base11 ::= <span class="str">11#</span>[<span class="c">0-9A-A</span>]+(<span class="str">.</span>[<span class="c">0-9A-A</span>]+)? <span class="ended">』</span>
+Base12 ::= <span class="str">12#</span>[<span class="c">0-9A-B</span>]+(<span class="str">.</span>[<span class="c">0-9A-B</span>]+)? <span class="ended">』</span><!--
+Base13 ::= <span class="str">13#</span>[<span class="c">0-9A-C</span>]+(<span class="str">.</span>[<span class="c">0-9A-C</span>]+)? <span class="ended">』</span>
+Base14 ::= <span class="str">14#</span>[<span class="c">0-9A-D</span>]+(<span class="str">.</span>[<span class="c">0-9A-D</span>]+)? <span class="ended">』</span>-->
+<span class="comment">// Base13, Base14も同様</span>
+Base15 ::= <span class="str">15#</span>[<span class="c">0-9A-E</span>]+(<span class="str">.</span>[<span class="c">0-9A-E</span>]+)? <span class="ended">』</span>
+Base16 ::= <span class="b">  </span><span class="str">#</span>[<span class="c">0-9A-F</span>]+(<span class="str">.</span>[<span class="c">0-9A-F</span>]+)? <span class="ended">』</span> <span class="comment">// <b>16</b>#FFはコンパイルエラー</span>
+<span class="comment">// 16進数の基数は省略しなければなりません(誰が書いても同じになるように)。</span>
+Base17 ::= <span class="str">17#</span>[<span class="c">0-9A-G</span>]+(<span class="str">.</span>[<span class="c">0-9A-G</span>]+)? <span class="ended">』</span>
+Base18 ::= <span class="str">18#</span>[<span class="c">0-9A-H</span>]+(<span class="str">.</span>[<span class="c">0-9A-H</span>]+)? <span class="ended">』</span> <!--
+Base19 ::= <span class="str">19#</span>[<span class="c">0-9A-I</span>]+(<span class="str">.</span>[<span class="c">0-9A-I</span>]+)? <span class="ended">』</span>
+Base20 ::= <span class="str">20#</span>[<span class="c">0-9A-J</span>]+(<span class="str">.</span>[<span class="c">0-9A-J</span>]+)? <span class="ended">』</span>
+Base21 ::= <span class="str">21#</span>[<span class="c">0-9A-K</span>]+(<span class="str">.</span>[<span class="c">0-9A-K</span>]+)? <span class="ended">』</span>
+Base22 ::= <span class="str">22#</span>[<span class="c">0-9A-L</span>]+(<span class="str">.</span>[<span class="c">0-9A-L</span>]+)? <span class="ended">』</span>
+Base23 ::= <span class="str">23#</span>[<span class="c">0-9A-M</span>]+(<span class="str">.</span>[<span class="c">0-9A-M</span>]+)? <span class="ended">』</span>
+Base24 ::= <span class="str">24#</span>[<span class="c">0-9A-N</span>]+(<span class="str">.</span>[<span class="c">0-9A-N</span>]+)? <span class="ended">』</span>
+Base25 ::= <span class="str">25#</span>[<span class="c">0-9A-O</span>]+(<span class="str">.</span>[<span class="c">0-9A-O</span>]+)? <span class="ended">』</span>
+Base26 ::= <span class="str">26#</span>[<span class="c">0-9A-P</span>]+(<span class="str">.</span>[<span class="c">0-9A-P</span>]+)? <span class="ended">』</span>
+Base27 ::= <span class="str">27#</span>[<span class="c">0-9A-Q</span>]+(<span class="str">.</span>[<span class="c">0-9A-Q</span>]+)? <span class="ended">』</span>
+Base28 ::= <span class="str">28#</span>[<span class="c">0-9A-R</span>]+(<span class="str">.</span>[<span class="c">0-9A-R</span>]+)? <span class="ended">』</span>
+Base29 ::= <span class="str">29#</span>[<span class="c">0-9A-S</span>]+(<span class="str">.</span>[<span class="c">0-9A-S</span>]+)? <span class="ended">』</span>
+Base30 ::= <span class="str">30#</span>[<span class="c">0-9A-T</span>]+(<span class="str">.</span>[<span class="c">0-9A-T</span>]+)? <span class="ended">』</span>
+Base31 ::= <span class="str">31#</span>[<span class="c">0-9A-U</span>]+(<span class="str">.</span>[<span class="c">0-9A-U</span>]+)? <span class="ended">』</span>
+Base32 ::= <span class="str">32#</span>[<span class="c">0-9A-V</span>]+(<span class="str">.</span>[<span class="c">0-9A-V</span>]+)? <span class="ended">』</span>
+Base33 ::= <span class="str">33#</span>[<span class="c">0-9A-W</span>]+(<span class="str">.</span>[<span class="c">0-9A-W</span>]+)? <span class="ended">』</span>
+Base34 ::= <span class="str">34#</span>[<span class="c">0-9A-X</span>]+(<span class="str">.</span>[<span class="c">0-9A-X</span>]+)? <span class="ended">』</span>
+Base35 ::= <span class="str">35#</span>[<span class="c">0-9A-Y</span>]+(<span class="str">.</span>[<span class="c">0-9A-Y</span>]+)? <span class="ended">』</span> -->
+<span class="comment">// Base19, Base20, ..., Base35も同様</span>
+Base36 ::= <span class="str">36#</span>[<span class="c">0-9A-Z</span>]+(<span class="str">.</span>[<span class="c">0-9A-Z</span>]+)? <span class="ended">』</span>
+</pre>
+
+            <h2 id="others">その他</h2>
+            <h3 id="identifier">識別子</h3>
+            <pre>
+Name ::= [<span class="c">A-Za-z_</span>][<span class="c">0-9A-Za-z_</span>]* <span class="ended">』</span>
+SourceName ::= Name <span class="ended">』</span> <span class="comment">// ソースコード名</span>
+BlockName  ::= Name <span class="ended">』</span> <span class="comment">// ブロック名</span>
+ClassName  ::= Name <span class="ended">』</span> <span class="comment">// 定義時のクラス名</span>
+ConstName  ::= Name <span class="ended">』</span> <span class="comment">// 定義時の定数名</span>
+AName      ::= Name <span class="ended">』</span> <span class="comment">// 定義時の別名</span>
+FName      ::= Name <span class="ended">』</span> <span class="comment">// 定義時の関数名</span>
+VName      ::= Name <span class="ended">』</span> <span class="comment">// 定義時の変数名</span>
+EName      ::= Name <span class="ended">』</span> <span class="comment">// 定義時の列挙体名</span>
+AliasName    ::= (SourceName<span class="str">@</span>)?((ClassName<span class="str">.</span>)*ClassName<span class="str">.</span>)?AName <span class="ended">』</span> <span class="comment">// アクセス時の別名</span>
+FunctionName ::= (SourceName<span class="str">@</span>)?((ClassName<span class="str">.</span>)*ClassName<span class="str">.</span>)?FName <span class="ended">』</span> <span class="comment">// アクセス時の関数名</span>
+VariableName ::= (SourceName<span class="str">@</span>)?((ClassName<span class="str">.</span>)*ClassName<span class="str">.</span>)?VName <span class="ended">』</span> <span class="comment">// アクセス時の変数名</span>
+EnumName     ::= (SourceName<span class="str">@</span>)?((ClassName<span class="str">.</span>)*ClassName<span class="str">#</span>)?EName <span class="ended">』</span> <span class="comment">// アクセス時の列挙体名</span>
+ConstantName ::= (SourceName<span class="str">@</span>)?((ClassName<span class="str">.</span>)*ClassName<span class="str">.</span>)?ConstName |
+                 EnumName<span class="str">#</span>ConstName <span class="ended">』</span>
+<span class="comment">// グローバル変数のアクセス時には「SourceName@」が必要です。</span>
+<span class="comment">// enumの要素にアクセスする記法の例: Test@C#E#Hoge <a href="https://twitter.com/kuina_tesso/status/232620029387087872">[出典: Twitter / kuina_tesso]</a></span>
+<span class="comment">// (ソースTest 内のクラスC 内の列挙体E 内の要素Hogeにアクセス)</span>
+</pre>
+
+            <h3 id="operator">演算子</h3>
+            <pre>
+<span class="comment">// 代入演算子が = ではなく、::なのが特徴的です。</span>
+<span class="comment">// C言語の ==, !=, &amp;&amp;, || は、Kuinではそれぞれ、=, &lt;&gt;, &amp;, | に対応します。</span>
+<span class="comment">// &amp;, | はC言語の&amp;&amp;, ||と同様に短絡評価される論理演算子です。</span>
+<span class="comment">// インクリメント演算子はありません。i :+ 1 で代用してください。</span>
+Op1 ::= <span class="str">+</span> | <span class="str">-</span> | <span class="str">!</span> <span class="ended">』</span>
+Op2 ::= <span class="str">+</span> | <span class="str">-</span> | <span class="str">*</span> | <span class="str">/</span> | <span class="str">%</span> | <span class="str">^</span> | <span class="comment">// 加減乗除、剰余、累乗</span>
+        <span class="str">@in</span> | <span class="str">@nin</span> | <span class="comment">// 例: value @in array</span>
+        <span class="str">=</span> | <span class="str">&lt;&gt;</span> | <span class="str">&lt;</span> | <span class="str">&gt;</span> | <span class="str">&lt;=</span> | <span class="str">&gt;=</span> | <span class="comment">// 等価、不等価、比較</span>
+        <span class="str">&amp;</span> | <span class="str">|</span> | <span class="comment">// 論理積、論理和</span>
+        <span class="str">~</span> <span class="ended">』</span> <span class="comment">// 配列連結</span>
+OpType1 ::= <span class="str">@new</span> <span class="ended">』</span> <span class="comment">// インスタンスの作成</span>
+OpType2 ::= <span class="str">$</span> <span class="ended">』</span> <span class="comment">// キャスト演算子</span>
+OpClass2 ::= <span class="str">@is</span> | <span class="str">@nis</span> <span class="ended">』</span> <span class="comment">// クラスをチェックする演算子</span>
+OpSubstitution ::= <span class="str">::</span> | <span class="comment">// 代入演算子</span>
+                   <span class="str">:+</span> | <span class="str">:-</span> | <span class="str">:*</span> | <span class="str">:%</span> | <span class="str">:^</span> | <span class="str">:~</span> <span class="ended">』</span> <span class="comment">// 複合代入演算子</span>
+<span class="comment">// 代入演算の戻り値はvoidです。<a href="http://ja.favstar.fm/users/10000favs/status/240074452233240577">[出典: Twitter / 10000favs]</a></span>
+OpSwap ::= <span class="str">@swap</span> <span class="ended">』</span> <span class="comment">// @swap演算子</span>
+<span class="comment">// a @swap bで変数a と b の値が入れ替わります。</span>
+<span class="comment">// @swap演算子の戻り値はvoidです。<a href="http://ja.favstar.fm/users/10000favs/status/240054025469435904">[出典: Twitter / 10000favs]</a></span>
+</pre>
+
+            <h3 id="functioncall">関数呼び出し</h3>
+            <pre>
+FunctionCall ::= Function <span class="str">(</span> (<span class="str">&amp;</span>? Expr( <span class="str">,</span> <span class="str">&amp;</span>? Expr)*)? <span class="str">)</span> |
+                 Expr <span class="str">.</span> FunctionCall <span class="ended"> 』</span> <span class="comment">// (2).ToStr()などのメソッド呼び出し</span>
+<span class="comment">// 関数定義時( <a href="#func">Func</a> )の引数の型の前に &amp; を付け、関数呼び出し時も &amp; を付けると、参照渡しになります。</span>
+<span class="comment">// 例：func f(x : &amp;int) に対し、do f(&amp;i) <a href="https://twitter.com/kuina_tesso/status/238867619975950336">[出典: Twitter / kuina_tesso]</a></span>
+<span class="comment">// 数値型のメソッドを利用する際、例えば5.ToStr() ではなく、</span>
+<span class="comment">// (5).ToStr() または 5 .ToStr() とする必要があります。<a href="http://ja.favstar.fm/users/10000favs/status/240092378285871106">[出典: Twitter / 10000favs]</a></span>
+
+Function ::= FunctionName |
+             Variable | ConstantName<span class="ended"> 』</span> <span class="comment">// 関数型で定義された変数・定数</span>
+</pre>
+
+            <h3 id="type">型</h3>
+            <pre>
+Type ::= <span class="str">int</span> | <span class="str">float</span> | <span class="str">char</span> | <span class="str">bool</span> | <span class="comment">// 符号付整数型・浮動小数点型・文字型・論理型</span>
+         <span class="str">sbyte8</span> | <span class="str">sbyte16</span> | <span class="str">sbyte32</span> | <span class="str">sbyte64</span> | <span class="comment">// 符号付整数型</span>
+         <span class="str"> byte8</span> | <span class="str"> byte16</span> | <span class="str"> byte32</span> | <span class="str"> byte64</span> | <span class="comment">// 符号なし整数型</span>
+         <span class="str">list</span>  <span class="str">&lt;</span> Type <span class="str">&gt;</span> | <span class="comment">// リスト構造</span>
+         <span class="str">stack</span> <span class="str">&lt;</span> Type <span class="str">&gt;</span> | <span class="comment">// スタック構造</span>
+         <span class="str">queue</span> <span class="str">&lt;</span> Type <span class="str">&gt;</span> | <span class="comment">// キュー構造</span>
+         <span class="str">dict</span>  <span class="str">&lt;</span> Type <span class="str">,</span> Type <span class="str">&gt;</span> | <span class="comment">// 辞書型</span><!--
+         <span class="str">complex</span> | <span class="str">money</span> | <span class="str">ratio</span> | -->
+         <span class="str">func</span>  <span class="str">&lt;</span> <span class="str">(</span> (<span class="str">&amp;</span>? Type( <span class="str">,</span> <span class="str">&amp;</span>? Type)*)? <span class="str">)</span> (<span class="str">:</span> Type)? <span class="str">&gt;</span> | <span class="comment">// 関数型</span>
+         EnumName | ClassName | <span class="comment">// 列挙体・クラス</span>
+         AliasName | <span class="comment">// 別名</span>
+         <span class="str">[ ] </span>Type <span class="ended">』</span> <span class="comment">// 動的配列</span>
+<span class="comment">// complex/money/ratio型 はしばらく仕様から外れることになりました。<a href="https://twitter.com/kuina_tesso/status/231831344467046400">[詳細: Twitter / kuina_tesso]</a></span>
+<span class="comment">// Kuinでは型が厳密に扱われます。暗黙の型変換はできません。</span>
+<span class="comment">// 配列は、var array:[]int :: @new [5]int のように宣言でき、 array :~ @new [2]int のように要素数を増やせます。</span>
+</pre>
+
+            <h3 id="value">値指定</h3>
+            <pre>
+Value ::= Expr( <span class="str">@to</span> Expr)?( <span class="str">,</span> Value)* <span class="ended">』</span>
+<span class="comment">// switch文・try文で用いる値の指定方法です。</span>
+<span class="comment">// Exprの型はそれぞれの文で制限されています。</span>
+</pre>
+
+            <h3 id="comment">コメント</h3>
+            <pre>
+Comment ::= <span class="str">{</span> ( [^<span class="c">"'{}</span>]+ | String | Char | Comment )* <span class="str">}</span> <span class="ended">』</span>
+<span class="comment">// 複数行コメント可能です。一行コメントに特化したコメント記法はありません。</span>
+<span class="comment">// Kuinでは、コメントがネストできます。</span>
+<span class="comment">// また、コメント内部に文字列リテラル、文字リテラルを含み得ます。</span>
+<span class="comment">// 例えば、{ " }" {  } }は全体がコメント扱いされます。</span>
+</pre>
+
+            <h1 id="questions" style="margin-top:1em;">このページの作者がKuinについて知らないこと・知らなかったこと(覚え書き)</h1>
+            <p>
+            <span class="comment">// 下記に対する回答によっては、このページに修正が必要になります。</span><br>
+            <span class="comment">// 答えを知っている方や、このページの誤りに気付いた方へ。</span><br>
+            <span class="comment">// <a href="http://twitter.com/#!/tatt61880">@tatt61880</a>に連絡を頂けると幸いです。</span><br>
+            <span class="comment">// <a href="http://theinterviews.jp/tatt61880/interview">interviews</a>経由で匿名で指摘頂いても構いません。</span><br>
+            <span class="comment">// このページの情報をより正確なものにしたいと考えています。</span><br>
+            </p>
+
+            <ol style="padding-left:30px">
+                <li>代入文は値を返すか。 <span class="comment">// →公式回答：返さない。<a href="http://ja.favstar.fm/users/10000favs/status/240074452233240577">[出典: Twitter / 10000favs]</a> </span>
+                </li><li>complex/money/ratio型の詳細 (リテラルなど)。<br>※Kuin 0.023現在、これらの型は予約語からも外されています。
+                </li><li>空のブロックは許されるか。<span class="comment">// →調査結果：許される。</span>
+                </li><li>importするソースコード名の記述方法。<br>(例えば、import .\\..\\Hoge dir\\Test という記述で良いか)<br>(空白文字を含むパス名は許されるか)<br><span class="comment">// →公式回答： 識別子にできないような名前のファイルはインポートできません。<a href="http://ja.favstar.fm/users/10000favs/status/240359124578217984">[出典: Twitter / 10000favs]</a></span>
+                </li><li>ブロック名となっている変数は「定数」ではなく「変数」なのか。<br>(例えば、foreach item(items)のitemに代入できるか)<br>
+                <span class="comment">// →公式回答：ループ変数に代入可能。<a href="http://ja.favstar.fm/users/10000favs/status/241441192666091520">[出典: Twitter / 10000favs]</a></span><br>
+                <span class="comment">// （↑言語仕様0.01にも書いてありました。）</span>
+                </li><li>Enumの要素へのアクセス時に、列挙体名は省略できるか。<br>
+                <span class="comment">// →調査結果：省略不可能。 EName#ConstName といった具合に「列挙体名#」が必要です。</span>
+                </li><li>0120は許されるか。<br>(10進数リテラルにおける先頭の無駄な0。8進数と誤解しそう)
+                </li><li>↑10進数リテラル以外ではどうか。
+                </li><li>do true ?(f(&amp;a), f(&amp;b))は許されるか。<br>(do の直後が代入でも関数呼び出しでもなく条件演算)<br>
+                <span class="comment">// →調査結果：許されない。</span><br>
+                <span class="comment">// →上記のような場合はifを使うべきで、コンパイルエラーとしているとのこと。</span><br>
+                </li><li>下記の場所に空白は許されるか。
+                <ul>
+                    <li>関数名と()の間。<span class="comment">// →調査結果：許される。</span>
+                    </li><li>ブロック名と()の間。<span class="comment">// →調査結果：許される。</span>
+                    </li><li>配列名と[]の間。<span class="comment">// →調査結果：許される。</span>
+                    </li><li>クラス宣言中の +/-とvarの間。<span class="comment">// →調査結果：許される。</span>
+                    </li><li>クラス宣言中の +/-と*の間。<span class="comment">// →調査結果：許される。</span>
+                    </li><li>listやstack, queue, dict, funcと &lt; の間。（例 list &lt;int&gt;） <span class="comment">// →調査結果：許される。</span>
+                    </li><li>参照渡しの&amp;と識別子の間。<span class="comment">// →調査結果：許される。</span>
+                    </li>
+                </ul>
+                </li><li>foreachのitemsにdict型を指定した場合、KeyとValueをそれぞれ参照する方法は？
+                </li><li>try文のcatch節に指定する値はコンパイル時に定数に定まる必要はあるか？<br>
+                <span class="comment">// →実験結果：定まる必要がある。「Error: E0043 	try文の条件はコンパイル時に定数にできる必要があります。」</span>
+                </li><li>nan(数値リテラルの一種？)は予約語ではなくなったのか？
+                </li>
+            </ol>
+
+            <hr> <!-- ___________________________________________________ -->
+            <h1 id="other">Kuin関連ページの紹介</h1>
+            <a href="http://dl.dropbox.com/u/9975638/kuin/index.html">Kuin関連ページの紹介</a>
+            <hr> <!-- ___________________________________________________ -->
+            <p>
+            Copyright (C) Tatt(タット)  ---- Twitterアカウント <a href="http://twitter.com/#!/tatt61880">@tatt61880</a><br>
+            </p>
+            <blockquote class="twitter-tweet" lang="ja">
+                <p><a href="https://twitter.com/search/?q=%23Kuin">#<b>Kuin</b></a> Kuinの拡張バッカス・ナウア記法 (非公式) <a href="http://t.co/kw06gJLQ" title="http://dl.dropbox.com/u/9975638/kuin/BNF/index.html">dl.dropbox.com/u/9975638/kuin…</a> 完成しました！ 非公式ですが、Kuinの文法のまとめとしてもご利用頂けると思います。<a href="https://twitter.com/tatt61880/status/236631242982952961">8月 18, 2012</a></p>
+            </blockquote>
+            <script src="//platform.twitter.com/widgets.js" charset="utf-8" type=""></script>
+
+            <p>
+            <a href="http://twitter.com/share" class="twitter-share-button">ツイート</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+            <br>
+            <a href="http://validator.w3.org/check?uri=referer"><img
+                style="border:0;width:88px;height:31px"
+                src="http://www.w3.org/Icons/valid-html401"
+                alt="Valid HTML 4.01 Strict"></a>
+            <a href="http://jigsaw.w3.org/css-validator/check/referer"><img
+                style="border:0;width:88px;height:31px"
+                src="http://jigsaw.w3.org/css-validator/images/vcss"
+                alt="Valid CSS!"></a>
+            </p>
+        </div>
+    </body>
+</html>
+

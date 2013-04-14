@@ -1,0 +1,165 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<html lang="ja">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>KuinでQuine</title>
+        <style type="text/css">
+            @import "./../style.css";
+        </style>
+
+        <script type="text/javascript">
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-22164995-2']);
+            _gaq.push(['_trackPageview']);
+
+            (function() {
+             var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+             ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+             var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+             })();
+        </script>
+
+        <script type="text/javascript" src="./../scripts/shCore.js"></script>
+        <script type="text/javascript" src="./../scripts/shBrushKuin.js"></script>
+        <link type="text/css" rel="stylesheet" href="./../styles/shCoreDefault.css">
+        <script type="text/javascript">SyntaxHighlighter.all();</script>
+    </head>
+    <body>
+        <div id="container">
+            <h1>KuinでQuine</h1>
+            <p>
+            Last Modified: 2012/09/17 12:54:13.<br>
+            </p>
+            <hr> <!-- ___________________________________________________ -->
+            <h2 id="overview">概要</h2>
+            <blockquote class="twitter-tweet" lang="ja"><p>KuinでQuine <a href="http://t.co/hBoZd0HS" title="http://dl.dropbox.com/u/9975638/kuin/code/quine/index.html">dl.dropbox.com/u/9975638/kuin…</a> まだ誰もそれっぽいものを公開していないようだったので作ってみました。 <a href="https://twitter.com/search/%23Kuin">#Kuin</a><a href="https://twitter.com/tatt61880/status/246740333508055040">9月 14, 2012</a></p></blockquote>
+
+            <!-- 以下の点で不完全なQuineになっています。 -->
+            <!-- ・出力される文字列の文字コードが、ソースコードの文字コードと異なる。 -->
+            <!-- ・下記の行が追加される。 -->
+            <!-- Kuin: Run. -->
+            <!--  -->
+            <!--  -->
+            <!-- Kuin: Ok. -->
+            <ul>
+                <li> Kuinとは？
+                <ul>
+                    <li>くいなちゃん(<a href="https://twitter.com/kuina_tesso">@kuina_tesso</a>)が作成した言語<br>
+                    </li><li>詳しくはWebで → <a href="http://tes.so/kuin/">自作言語Kuin 公式ページ - Tes.So</a><br>
+                    </li>
+                </ul>
+                </li><li> Quineとは？
+                <ul>
+                    <li>自己のソースを出力するプログラム。<br>
+                    </li><li>詳しくはWebで → <a href="http://ja.wikipedia.org/wiki/%E3%82%AF%E3%83%AF%E3%82%A4%E3%83%B3_(%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0)">クワイン (プログラミング) - Wikipedia</a><br>
+                    </li>
+                </ul>
+                </li>
+            </ul>
+
+            <h2 id="code">コード</h2>
+            <ul>
+            <li>
+            <a href="#kuin_quine">Kuinっぽさを意識したQuine</a>
+            </li><li>
+            <a href="#codegolf">コードゴルフを意識したQuine</a>
+            </li>
+            </ul>
+            <p>
+            コードの表示に、きょんたん(<a href="https://twitter.com/kyonline">@kyonline</a>)の作成した<a href="http://monora.me/kuin/">SyntaxHighlighter for Kuin</a>を使用しています。<br>
+            </p>
+            <h3 id="kuin_quine">Kuinっぽさを意識したQuine</h3>
+            <p>
+            <a href="./20120915/Quine.kn">Quine.kn</a> (1,376バイト)
+            </p>
+            <pre class="brush: kuin;">
+{ Quine in Kuin. @tatt61880 {Last Modified: 2012/09/15 07:01:18.}}
+func Main()
+    func Quine(str : []char)
+        var str2 : []char :: ""
+        for i(0, str.Len() - 1)
+            switch c(str[i])
+            case ('\n')
+                do str2 :~ "\\n\" {\n} ~ \""
+            case ('\\', '"')
+                do str2 :~ "\\" ~ c.ToStr()
+            default
+                do str2 :~ c.ToStr()
+            end switch
+        end for
+        do Kuin@Dbg(str ~ str2 ~ "\"\n    do Quine(str)\nend func")
+    end func
+    const str : []char :: "" {
+} ~ "{ Quine in Kuin. @tatt61880 {Last Modified: 2012/09/15 07:01:18.}}\n" {
+} ~ "func Main()\n" {
+} ~ "    func Quine(str : []char)\n" {
+} ~ "        var str2 : []char :: \"\"\n" {
+} ~ "        for i(0, str.Len() - 1)\n" {
+} ~ "            switch c(str[i])\n" {
+} ~ "            case ('\\n')\n" {
+} ~ "                do str2 :~ \"\\\\n\\\" {\\n} ~ \\\"\"\n" {
+} ~ "            case ('\\\\', '\"')\n" {
+} ~ "                do str2 :~ \"\\\\\" ~ c.ToStr()\n" {
+} ~ "            default\n" {
+} ~ "                do str2 :~ c.ToStr()\n" {
+} ~ "            end switch\n" {
+} ~ "        end for\n" {
+} ~ "        do Kuin@Dbg(str ~ str2 ~ \"\\\"\\n    do Quine(str)\\nend func\")\n" {
+} ~ "    end func\n" {
+} ~ "    const str : []char :: \"\" {\n" {
+} ~ "} ~ \""
+    do Quine(str)
+end func
+</pre>
+            <h3 id="codegolf">コードゴルフを意識したQuine</h3>
+            <blockquote class="twitter-tweet" lang="ja"><p>KuinでQuine <a href="http://t.co/hBoZd0HS" title="http://dl.dropbox.com/u/9975638/kuin/code/quine/index.html">dl.dropbox.com/u/9975638/kuin…</a> 【挑戦状】 447バイトより小さなサイズで書ける人はいますか？ <a href="https://twitter.com/search/%23Kuin">#Kuin</a> <a href="https://twitter.com/search/%23Quine">#Quine</a> <a href="https://twitter.com/search/%23codegolf">#codegolf</a><a href="https://twitter.com/tatt61880/status/246931065023897600">9月 15, 2012</a></p></blockquote>
+            447バイトのコード → <a href="./20120915/shortQuine.kn">shortQuine.kn</a><br>
+            <pre class="brush: kuin;">
+func Main()
+func Q(s:[]char)
+for i(0,#C9)
+if(s[i]='\n')
+do s:~"\\n"
+elif(s[i]='\\'|s[i]='"')
+do s:~"\\"~s[i].ToStr()
+else
+do s:~s[i].ToStr()
+end if
+end for
+do Kuin@Dbg(s~"\")\nend func")
+end func
+do Q("func Main()\nfunc Q(s:[]char)\nfor i(0,#C9)\nif(s[i]='\\n')\ndo s:~\"\\\\n\"\nelif(s[i]='\\\\'|s[i]='\"')\ndo s:~\"\\\\\"~s[i].ToStr()\nelse\ndo s:~s[i].ToStr()\nend if\nend for\ndo Kuin@Dbg(s~\"\\\")\\nend func\")\nend func\ndo Q(\"")
+end func
+</pre>
+
+            <hr>
+            <p>
+            現在最短252バイト → <a href="./20120916/shortQuine.kn">shortQuine.kn</a><br>
+            ※非SGML文字を含んでいるためブラウザ上に表示できません。上記リンクを右クリックしてコードをダウンロードしてください。
+            </p>
+
+            <h1 id="ads" style="margin-top:1em;">宣伝</h1>
+            <a href="http://dl.dropbox.com/u/9975638/kuin/index.html">Kuin関連ページの紹介</a>
+            <hr> <!-- ___________________________________________________ -->
+            <p>
+            Copyright (C) Tatt(タット)  ---- Twitterアカウント <a href="http://twitter.com/#!/tatt61880">@tatt61880</a><br>
+            </p>
+
+            <p>
+            <a href="http://twitter.com/share" class="twitter-share-button">ツイート</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+            <script src="//platform.twitter.com/widgets.js" charset="utf-8" type=""></script>
+            <br>
+            <a href="http://validator.w3.org/check?uri=referer"><img
+                style="border:0;width:88px;height:31px"
+                src="http://www.w3.org/Icons/valid-html401"
+                alt="Valid HTML 4.01 Strict"></a>
+            <a href="http://jigsaw.w3.org/css-validator/check/referer"><img
+                style="border:0;width:88px;height:31px"
+                src="http://jigsaw.w3.org/css-validator/images/vcss"
+                alt="Valid CSS!"></a>
+            </p>
+        </div>
+    </body>
+</html>
+

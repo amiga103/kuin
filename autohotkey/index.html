@@ -1,0 +1,115 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<html lang="ja">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>kn.exe (Kuin.exeのCUI操作用ツール)</title>
+        <style type="text/css">
+            @import "style.css";
+        </style>
+
+        <script type="text/javascript">
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-22164995-2']);
+            _gaq.push(['_trackPageview']);
+
+            (function() {
+             var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+             ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+             var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+             })();
+        </script>
+    </head>
+    <body>
+        <div id="container">
+            <h1>kn.exe (Kuin.exeのCUI操作用ツール)</h1>
+            <p>
+            Last Modified: 2012/09/16 11:24:46.<br>
+            <b>Only available in Japanese text.</b><br>
+            </p>
+            <hr> <!-- ___________________________________________________ -->
+
+            <h2 id="overview">概要</h2>
+            <p>
+            kn.exeは、コマンドプロンプトからKuin.exeの[コンパイル]ボタンのクリックを発生させるツールです。<br>
+            ※Kuin.exeはくいなちゃん(<a href="https://twitter.com/kuina_tesso">@kuina_tesso</a>)が作成した、<a href="http://tes.so/kuin/">Kuin</a>の処理系です。<br>
+            </p>
+
+            <h2 id="download">ダウンロード</h2>
+            <p>
+           【自己責任でご利用下さい】<br>
+            2012/09/01 公開<br>
+            ※Kuin 0.023でしか動作しません。<br>
+            <ul>
+                <li><a href="./kn/20120901/kn.exe">kn.exe</a> (kn.ahkをexe化したもの)<br>
+                </li><li><a href="./kn/20120901/kn.ahk">kn.ahk</a> (ソースファイル)<br>
+                </li>
+            </ul>
+
+            <h2 id="usage">使用方法</h2>
+            <ol>
+                <li>kn.exeをKuin.exeと同じフォルダにおいてください。<br>
+                </li><li>Kuin.exeをアクティブ状態にした時に、[コンパイル]ボタンが画面に入るようにしてください。<br>
+                （[コンパイル]ボタンが画面外にあると、コンパイル結果が更新されません。）<br>
+                </li><li>コマンドプロンプトから実行します。kn.exe [sourcefile.kn [run]]<br>
+                sourcefile.knは、kn.exeの置いてあるフォルダからの相対パスで入力してください。
+                <ul>
+                    <li>
+                    例1: kn.exe<br>
+                    Kuin.exeのソースファイル欄が空欄だろうがなんだろうが、とにかくコンパイル。
+                    </li>
+                    <li>
+
+                    例1: kn.exe Sample.kn<br>
+                    Sample.knをコンパイル。
+                    </li>
+                    <li>
+
+                    例2: kn.exe Sample.kn run<br>
+                    Sample.knのコンパイルに成功した場合、Sample_dbg.exeを実行する。
+                    </li>
+                </ul>
+            </ol>
+
+            <h2 id="issues">不具合を発見された場合</h2>
+            <p>
+            <a href="http://twitter.com/#!/tatt61880">@tatt61880</a>にご連絡頂けると幸いです。<br>
+            <a href="http://theinterviews.jp/tatt61880/interview">interviews</a>経由で匿名で指摘頂いても構いません。<br>
+            不具合でなくても、改善案があれば、是非教えてください。<br>
+            【既知の不具合】
+            </p>
+            <ul>
+                <li>[コンパイル]ボタンが画面外にある場合にコンパイルできない。この時、前回の結果が再度表示される。
+                </li>
+            </ul>
+
+            <h2 id="messages">その他</h2>
+            <ul>
+                <li>
+                このツールの作成にあたり、<a href="http://ahk.xrea.jp/">AutoHotkeyを流行らせるページ</a>の情報にお世話になりました。
+                </li>
+            </ul>
+
+            <h1 id="ads">宣伝</h1>
+            <a href="http://dl.dropbox.com/u/9975638/kuin/index.html">Kuin関連ページの紹介</a>
+            <hr> <!-- ___________________________________________________ -->
+            <p>
+            Copyright (C) Tatt(タット)  ---- Twitterアカウント <a href="http://twitter.com/#!/tatt61880">@tatt61880</a><br>
+            </p>
+
+            <p>
+            <a href="http://twitter.com/share" class="twitter-share-button">ツイート</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+            <br>
+            <a href="http://validator.w3.org/check?uri=referer"><img
+                style="border:0;width:88px;height:31px"
+                src="http://www.w3.org/Icons/valid-html401"
+                alt="Valid HTML 4.01 Strict"></a>
+            <a href="http://jigsaw.w3.org/css-validator/check/referer"><img
+                style="border:0;width:88px;height:31px"
+                src="http://jigsaw.w3.org/css-validator/images/vcss"
+                alt="Valid CSS!"></a>
+            </p>
+        </div>
+    </body>
+</html>
+

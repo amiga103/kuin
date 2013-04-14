@@ -1,0 +1,115 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<html lang="ja">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>kuin.vim (Kuin用 Vim設定ファイル)</title>
+        <style type="text/css">
+            @import "style.css";
+        </style>
+
+        <script type="text/javascript">
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-22164995-2']);
+            _gaq.push(['_trackPageview']);
+
+            (function() {
+             var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+             ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+             var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+             })();
+        </script>
+    </head>
+    <body>
+        <div id="container">
+            <h1>kuin.vim (Kuin用 Vim設定ファイル)</h1>
+            <p>
+            シンタックスハイライト定義ファイル &amp; インデント定義ファイル<br>
+            Last Modified: 2013/03/25 01:28:45.<br>
+            <b>日本語(Japanese), <a href="./index_en.html">English</a></b>
+            <a href="http://dl.dropbox.com/u/9975638/kuin/index.html">Kuin関連ページ紹介に戻る</a>
+            </p>
+            <hr> <!-- ___________________________________________________ -->
+
+            <h2 id="overview">概要</h2>
+            <p>
+            kuin.vimは、Kuin用のVim設定ファイルです。<br>
+            <a href="http://tes.so/kuin/document.html">自作言語Kuin 言語仕様Ver.0.03 @ Tes.So</a>を参考に作成しました。<br>
+            ※<a href="http://tes.so/kuin/">Kuin</a>は、くいなちゃん(<a href="https://twitter.com/kuina_tesso">@kuina_tesso</a>)が考案したプログラミング言語です。<br>
+            </p>
+            <table border="1">
+                <tr style="background-color:#B0D4E5" align="center">
+                    <td>
+                        【使用イメージ】<br><a href="./kuin_sample.kn"><img src="./example.png" alt="[Image: サンプル画像が読み込めませんでした。代替テキストを表示しています。]"></a><br>(画像をクリックするとソースコードが表示されます)
+                    </td>
+                </tr>
+            </table>
+
+            <h2 id="download">ダウンロード</h2>
+            <p>
+           【自己責任でご利用下さい】<br>
+            2013/03/25 更新<br>
+            <a href="./zip/kuin-vim-20130325.zip">kuin-vim-20130325.zip</a><br>
+            <a href="./snippets/index.html">Kuin用 Neocomplcache-snippets-complete 設定ファイル</a>をインストールするとさらに便利です。<br>
+            </p>
+            <ul>
+                <li> 以前、拡張子の定義（下記）を、_gvimrcに書いて頂くようにしていましたが、ftdetectフォルダにkuin.vimを置くのが正道のようです。<br>
+                    autocmd BufRead,BufNewFile *.kn set filetype=kuin<br>
+                    <span style="color:red">【重要】</span>以前 _gvimrcに上記1行を追加した方は、その行を削除してください。<br>
+                    よろしくお願いします。<br>
+                </li>
+            </ul>
+
+            <h2 id="usage">インストール手順</h2>
+            <p>
+            ダウンロードした zipファイルを解凍し、C:\Program Files\vim\vim73（環境により異なる可能性があります）の下にコピーしてください。<br>
+            各フォルダの中にはkuin.vimが入っています。各フォルダの役割は下記の通りです。
+            </p>
+            <ul>
+                <li>"ftdetect"フォルダ：拡張子定義ファイル</li>
+                <li>"ftplugin"フォルダ：ファイルオプション定義ファイル</li>
+                <li>"indent"フォルダ　：インデント定義</li>
+                <li>"syntax"フォルダ　：シンタックスハイライト定義</li>
+            </ul>
+
+            <h2 id="changelog">更新履歴 / 古いバージョンの入手</h2>
+            <p>
+            <a href="./changes.html"> 更新履歴 </a>を御覧ください。
+            </p>
+
+            <h2 id="issues">不具合について</h2>
+            <p>
+            不具合を発見された場合、<a href="http://twitter.com/#!/tatt61880">@tatt61880</a>にご連絡頂けると幸いです。<br>
+            匿名希望の場合は、<a href="http://theinterviews.jp/tatt61880/interview">interviews</a>経由で指摘頂いても構いません。<br>
+            既知の不具合を知りたい方は、<a href="./issues.html"> 既知の不具合 </a>を御覧ください。
+            </p>
+
+            <hr> <!-- ___________________________________________________ -->
+            <h1 id="ads" style="margin-top:1em;"></h1>
+            <blockquote class="twitter-tweet" lang="ja"><p>kuin.vim (Kuin用 Vim設定ファイル) <a href="http://t.co/4K1UULuE" title="http://dl.dropbox.com/u/9975638/kuin/vim/index.html">dl.dropbox.com/u/9975638/kuin…</a> シンタックスハイライトとインデントの定義ファイルです。テキトーな作りですが、ないよりはマシなはず。 :-) <a href="https://twitter.com/search/?q=%23Kuin">#<b>Kuin</b></a><a href="https://twitter.com/tatt61880/status/226683108169236480">7月 21, 2012</a></p>
+            </blockquote>
+            <p>
+            ※上記のツイート以降、大幅に改善されました。
+            </p>
+            <a href="http://dl.dropbox.com/u/9975638/kuin/index.html">Kuin関連ページの紹介</a>
+            <hr> <!-- ___________________________________________________ -->
+            <p>
+            Copyright (C) Tatt(タット)  ---- Twitterアカウント <a href="http://twitter.com/#!/tatt61880">@tatt61880</a><br>
+            </p>
+
+            <p>
+            <a href="http://twitter.com/share" class="twitter-share-button">ツイート</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+            <br>
+            <a href="http://validator.w3.org/check?uri=referer"><img
+                style="border:0;width:88px;height:31px"
+                src="http://www.w3.org/Icons/valid-html401"
+                alt="Valid HTML 4.01 Strict"></a>
+            <a href="http://jigsaw.w3.org/css-validator/check/referer"><img
+                style="border:0;width:88px;height:31px"
+                src="http://jigsaw.w3.org/css-validator/images/vcss"
+                alt="Valid CSS!"></a>
+            </p>
+        </div>
+    </body>
+</html>
+

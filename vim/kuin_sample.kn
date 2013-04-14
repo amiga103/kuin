@@ -1,0 +1,23 @@
+{ ☆ kuin_sample.kn ☆ }
+{ 3の倍数と3のつく数の時だけAlgodooになるフィボナッチ数列を出力します。 }
+func Main()
+    var a : int :: 0
+    var b : int :: 1
+    for i(0, 50)
+        if (a % 3 = 0)
+            { 3の倍数 }
+            do Kuin@Dbg("Algodoo")
+        elif ('3' @in a.ToStr())
+            { 3の付く数字 }
+            do Kuin@Dbg("Algodoo")
+        else
+            do Kuin@Dbg(a.ToStr())
+        end if
+
+        do a @swap b { 値を交換する@swap演算子 }
+        do b :+ a { 複合代入演算子 :+ （C言語の += に相当） }
+    end for
+
+    do Kuin@Stop()
+end func
+

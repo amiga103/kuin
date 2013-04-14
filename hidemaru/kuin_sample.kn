@@ -1,0 +1,18 @@
+{ kuin_sample.kn }
+{ 5の倍数なら"アルゴ"、3の倍数なら"ドゥー" }
+{ 15の倍数なら"アルゴドゥー"を表示します。 }
+func Main()
+    for i(1, #FF)
+        if (i % 15 = 0)
+            do Kuin@Dbg("アルゴドゥー")
+        elif (i % 5 = 0)
+            do Kuin@Dbg("アルゴ")
+        elif (i % 3 = 0)
+            do Kuin@Dbg("ドゥー")
+        else
+            do Kuin@Dbg(i.ToStr())
+        end if
+    end for
+
+    do Kuin@Stop()
+end func
