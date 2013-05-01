@@ -1,0 +1,88 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<html lang="ja">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title></title>
+        <style type="text/css">
+            @import "style.css";
+            span.notice{color: #FF00FF; font-weight:bold;}
+        </style>
+
+        <script type="text/javascript">
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-22164995-2']);
+            _gaq.push(['_trackPageview']);
+
+            (function() {
+             var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+             ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+             var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+             })();
+        </script>
+    </head>
+    <body>
+        <div id="container">
+            <h1>png画像の透過に関する不具合</h1>
+            <p>
+            詳しく調査していませんが、現象を報告します。既出だったらすみません。<br>
+            <br>
+            <span class="notice">【2013/04/30 14:51 追記】</span>
+            </p>
+            <ul>
+                <li>
+                【1】の画像は補助チャンクの情報で透過色を指定している。
+                </li>
+                <li>
+                補助チャンクはデコーダによって無視される場合がある。 ([出典: <a href="http://www.milk-island.net/document/png/#11tRNS">Portable Network Graphics(PNG)仕様 第2版　日本語訳</a>])
+                </li>
+            </ul>
+            <p>
+            ということで、この動作は仕様といって差し支えないと思います。<br>
+            透過させたいならアルファチャネルを使用するべきということで。お騒がせしました。<br>
+            下記の表に「<span class="notice">透明部分の指定方法</span>」「<span class="notice">カラータイプ</span>」の項目を追加しました。
+            </p>
+
+            <h2>現象</h2>
+            <p>
+            一見同じ画像に見える2つのファイルをD3D@DrawTexで表示した際、片方は透過して表示されず、片方は透過される。
+            </p>
+            <table style="background-color:#C0C0C0; margin-left:1em; margin-right:1em; margin-top:1em; margin-bottom:1em;" border="1">
+                <tr><th></th>
+                    <th>作成方法</th>
+                    <th>画像</th>
+                    <th>D3D@DrawTexの結果</th>
+                    <th><span class="notice">透明部分の指定方法</span></th>
+                    <th><span class="notice">カラータイプ</span></th>
+                </tr>
+                <tr><td>【1】</td>
+                    <td>IrfanViewというソフトで透過色を設定して保存したファイル。</td>
+                    <td><img src="./star1.png"></img></td>
+                    <td>透過されない<br>(背景に透過色の白色が表示される。)</td>
+                    <td>tRNSチャンク という補助チャンクによって透過色を示している。</td>
+                    <td>2 (トゥルーカラー)</td>
+                </tr>
+                <tr><td>【2】</td>
+                    <td>上記のファイルをGimpで開いて保存しなおしただけのファイル。</td>
+                    <td><img src="./star2.png"></img></td>
+                    <td>透過される</td>
+                    <td>アルファチャネルによって示している。 </td>
+                    <td>6 (トゥルーカラー(アルファ有り))</td>
+                </tr>
+            </table>
+
+
+            <h2>結果</h2>
+                <td><img src="./result.png"></img></td>
+
+            <hr> <!-- ___________________________________________________ -->
+            <h1 id="other">その他</h1>
+            <a href="http://dl.dropbox.com/u/9975638/kuin/index.html">Kuin関連ページの紹介</a>
+            <hr> <!-- ___________________________________________________ -->
+            <p>
+            Copyright (C) Tatt(タット)  ---- Twitterアカウント <a href="http://twitter.com/#!/tatt61880">@tatt61880</a><br>
+            </p>
+        </div>
+    </body>
+</html>
+

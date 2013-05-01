@@ -1,0 +1,82 @@
+*
+{
+    margin:  0;
+    padding: 0;
+}
+p,pre,table,ul,ol,blockquote
+{
+    margin: 5px 0em 5px 0em;
+}
+ul, ol { padding-left: 20px }
+h1 { font-size: 130%; }
+h2 { font-size: 120%; }
+h3 { font-size: 110%; }
+h4 { font-size: 100%; }
+h5 { font-size:  90%; }
+h6 { font-size:  80%; }
+h1 { background-color: #FBF; }
+h2 { background-color: #FFB; }
+h3 { background-color: #BFF; }
+h4 { background-color: #DDD; }
+h5 { background-color: #DDD; }
+h6 { background-color: #DDD; }
+h1 { line-height: 180%; }
+h2 { line-height: 160%; }
+h3 { line-height: 140%; }
+h4 { line-height: 130%; }
+h5 { line-height: 125%; }
+h6 { line-height: 120%; }
+h1 { margin: 0px -15px 0px -15px; }
+h2 { margin: 0px -15px 0px -15px; }
+h3 { margin: 0px -15px 0px -15px; }
+h4 { margin: 0px -15px 0px -15px; }
+h5 { margin: 0px -15px 0px -15px; }
+h6 { margin: 0px -15px 0px -15px; }
+hr { margin: 0px -15px 0px -15px; }
+h1 { padding-left:  6px; }
+h2 { padding-left:  9px; }
+h3 { padding-left: 12px; }
+h4 { padding-left: 15px; }
+h5 { padding-left: 18px; }
+h6 { padding-left: 21px; }
+h1 { font-weight : bold; }
+h2 { font-weight : normal; }
+h3 { font-weight : normal; }
+h4 { font-weight : normal; }
+h5 { font-weight : normal; }
+h6 { font-weight : normal; }
+html
+{
+    overflow-y: scroll;
+}
+table
+{
+    border-collapse: collapse;  border-spacing: 0;
+}
+th { background:#B0D4E5; }
+th { padding: 0 0.5em 0 0.5em; }
+td { padding: 0 0.5em 0 0.5em; }
+th, td { border:1px solid black; }
+*
+{
+    font-family: "メイリオ","Meiryo","Arial","Verdana","ヒラギノ角ゴ Pro W3","Hiragino Kaku Gothic Pro","Osaka","ＭＳ Ｐゴシック","MS PGothic","Sans-Serif";
+    font-size: 14px;  
+}
+pre, pre>span, pre>a
+{
+    font-family: "ＭＳ ゴシック","MS Gothic","Osaka-等幅",'Osaka-Mono',monospace;
+}
+body {
+    margin: auto;
+    max-width: 1024px;
+    min-width: 690px;
+    background-color: #B0D4E5;
+}
+#container
+{
+    margin: 10px 10px 10px 10px;
+    padding: 0px 15px 0px 15px;
+    background-color: #ffffff;
+    line-height: 150%;
+}
+

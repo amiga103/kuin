@@ -24,7 +24,7 @@
         <div id="container">
             <h1>kn.exe (Kuin.exeのCUI操作用ツール)</h1>
             <p>
-            Last Modified: 2012/09/16 11:24:46.<br>
+            Last Modified: 2013/04/30 19:50:27.<br>
             <b>Only available in Japanese text.</b><br>
             </p>
             <hr> <!-- ___________________________________________________ -->
@@ -38,20 +38,17 @@
             <h2 id="download">ダウンロード</h2>
             <p>
            【自己責任でご利用下さい】<br>
-            2012/09/01 公開<br>
+            初公開　 2012/09/01 v0.01<br>
+            最終更新 2013/04/30 v0.04 (かなり良い感じになりました)<br>
+            より詳しい更新履歴はGitHubに置いてあるReadme.txtをご覧ください。<br>
+            <a href="https://github.com/tatt61880/autohotkey_kn">GitHub tatt61880 / autohotkey_kn</a><br>
             ※Kuin 0.023でしか動作しません。<br>
-            <ul>
-                <li><a href="./kn/20120901/kn.exe">kn.exe</a> (kn.ahkをexe化したもの)<br>
-                </li><li><a href="./kn/20120901/kn.ahk">kn.ahk</a> (ソースファイル)<br>
-                </li>
-            </ul>
 
             <h2 id="usage">使用方法</h2>
             <ol>
                 <li>kn.exeをKuin.exeと同じフォルダにおいてください。<br>
-                </li><li>Kuin.exeをアクティブ状態にした時に、[コンパイル]ボタンが画面に入るようにしてください。<br>
-                （[コンパイル]ボタンが画面外にあると、コンパイル結果が更新されません。）<br>
-                </li><li>コマンドプロンプトから実行します。kn.exe [sourcefile.kn [run]]<br>
+                </li><li>コマンドプロンプトから下記のように実行します。<br>
+                kn.exe [sourcefile.kn [run]]<br>
                 sourcefile.knは、kn.exeの置いてあるフォルダからの相対パスで入力してください。
                 <ul>
                     <li>
@@ -60,28 +57,42 @@
                     </li>
                     <li>
 
-                    例1: kn.exe Sample.kn<br>
-                    Sample.knをコンパイル。
+                    例2: kn.exe dir\test.kn<br>
+                    dirフォルダのtest.knをコンパイル。
                     </li>
                     <li>
 
-                    例2: kn.exe Sample.kn run<br>
-                    Sample.knのコンパイルに成功した場合、Sample_dbg.exeを実行する。
+                    例3: kn.exe dir\test.kn run<br>
+                    dirフォルダのtest.knのコンパイル。<br>
+                    →コンパイルに成功した場合: test_dbg.exeを実行する。<br>
+                    ※この時の作業フォルダはdirフォルダです。
                     </li>
                 </ul>
             </ol>
+            <h2 id="advantage">セールスポイント</h2>
+            <table>
+                <tr><th>公式のKuin.exe</th>
+                    <th>kn.exe (このツール)</th>
+                </tr>
+                <tr><td>スクロールしないと、エラーの行番号がわからない。<img src="./kuin_errormessage.png" alt=""></img></td>
+                    <td>スクロールしなくてもエラーメッセージを最後まで読めて便利！<br>(エラーの場合のみ下図のようなメッセージボックスが表示されます)<br><img src="./kn_errormessage.png" alt=""></img></td>
+                </tr>
+            </table>
+
+            <h2 id="usage2">便利な使い方</h2>
+            <p>
+            公式の「Kuin.exe」と「Stdフォルダ」、そして「kn.exe」をまとめてパスの通ったディレクトリに置いておくと、<br>
+            Kuin.exeの置いていないディレクトリからでもコンパイル出来て便利です。<br>
+            ※StdフォルダとKuin.exeはGitHubには置いていません。公式のものを使用してください。
+            </p>
+            <img src="./kn.png" alt=""></img>
 
             <h2 id="issues">不具合を発見された場合</h2>
             <p>
             <a href="http://twitter.com/#!/tatt61880">@tatt61880</a>にご連絡頂けると幸いです。<br>
             <a href="http://theinterviews.jp/tatt61880/interview">interviews</a>経由で匿名で指摘頂いても構いません。<br>
             不具合でなくても、改善案があれば、是非教えてください。<br>
-            【既知の不具合】
             </p>
-            <ul>
-                <li>[コンパイル]ボタンが画面外にある場合にコンパイルできない。この時、前回の結果が再度表示される。
-                </li>
-            </ul>
 
             <h2 id="messages">その他</h2>
             <ul>
